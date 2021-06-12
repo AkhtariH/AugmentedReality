@@ -1,0 +1,11 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement style="height: 100%; background-color: rgb(96, 96, 96);">
+        <ui:Label display-tooltip-when-elided="true" name="error-label" style="-unity-text-align: upper-center; top: 27.5%; font-size: 20px;" />
+        <ui:Label text="Register" display-tooltip-when-elided="true" style="-unity-text-align: upper-center; margin-top: 0; top: 20%; font-size: 35px;" />
+        <ui:TextField picking-mode="Ignore" label="Name" multiline="false" name="name" style="top: 25%; flex-direction: column; width: 75%; left: 12.5%; font-size: 25px; height: 75px;" />
+        <ui:TextField picking-mode="Ignore" label="E-Mail Adress" multiline="false" name="email" style="top: 30%; flex-direction: column; width: 75%; left: 12.5%; font-size: 25px; height: 75px;" />
+        <ui:TextField picking-mode="Ignore" label="Password" multiline="false" password="true" name="password" style="top: 35%; flex-direction: column; width: 75%; left: 12.5%; font-size: 25px; height: 75px;" />
+        <ui:TextField picking-mode="Ignore" label="Confirm Password" multiline="false" password="true" name="confirm-password" style="top: 40%; flex-direction: column; width: 75%; left: 12.5%; font-size: 25px; height: 75px;" />
+        <ui:Button text="Sign Up" display-tooltip-when-elided="true" name="sign-up-button" style="top: 50%; width: 75%; left: 12.5%; height: 75px; font-size: 20px;" />
+    </ui:VisualElement>
+</ui:UXML>
