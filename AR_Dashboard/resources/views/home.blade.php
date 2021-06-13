@@ -77,7 +77,7 @@
             </div>
         </div>
     </div>
-    <div class="col-xl-6 col-xxl-6 col-lg-12 col-md-12">
+    <div class="col-xl-12 col-xxl-12 col-lg-12 col-md-12">
         <div class="card">
             <div class="card-header border-0 pb-0 d-sm-flex d-block">
                 <div>
@@ -89,13 +89,50 @@
                 <div class="basic-form custom_file_input">
                     <form action="{{ route('artobject.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
-                        <div class="input-group">
-                            <div class="custom-file">
-                                <input type="file" id="file" name="file" class="custom-file-input">
-                                <label class="custom-file-label">Choose file</label>
-                                
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <input type="text" name="name" class="form-control" placeholder="Name">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <input type="number" class="form-control" name="floatingHeight" placeholder="Altitude">
+                                </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <div class="input-group">
+                                        <input type="number" class="form-control" name="latitude" placeholder="Latitude">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <input type="number" class="form-control" name="longitude" placeholder="Longitude">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="input-group">
+                                    <textarea class="form-control" rows="5" name="description" placeholder="Description"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="input-group">
+                                    <div class="custom-file">
+                                        <input type="file" id="file" name="file" class="custom-file-input">
+                                        <label class="custom-file-label">Choose file</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="input-group" style="margin-top: 20px">
                             <button type="submit" class="btn btn-primary" name="submit">
                                 {{ __('Upload') }}

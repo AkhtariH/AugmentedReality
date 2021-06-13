@@ -38,6 +38,10 @@ class ArtObjectController extends Controller
     {
         $request->validate([
             'file' => 'required|max:1024000',
+            'floatingHeight' => 'required',
+            'latitude' => 'required|float',
+            'longitude' => 'required|float',
+            'name' => 'required'
         ]);
             
         $data = collect($request->except('file'));
@@ -49,13 +53,13 @@ class ArtObjectController extends Controller
             $request->file->move(public_path('img/uploads/'), $imageName);
             $data->put('file', $imageName);
             ArtObject::create([
-                'user_id' => 1,
-                'name' => 'Test',
-                'description' => 'Test',
+                'user_id' => Auth()->user()->id,
+                'name' => $request->name,
+                'description' => $request->description,
                 'file_path' => $imageName,
-                'longitude' => 0.0,
-                'latitude' => 0.0,
-                'floatingHeight' => 0
+                'longitude' => $request->longitude,
+                'latitude' => $request->latitude,
+                'floatingHeight' => $request->floatingHeight
             ]);
         }
 

@@ -37,64 +37,66 @@ public class test : MonoBehaviour
     // need to update placement indicator, placement pose and spawn 
     void Update()
     {
-        if (spawnedObject == null && placementPoseIsValid && Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
-        {
-            ARPlaceObject();
-        }
-
-
-        UpdatePlacementPose();
-        UpdatePlacementIndicator();
-
-
-    }
-    void UpdatePlacementIndicator()
-    {
-        if (spawnedObject == null && placementPoseIsValid)
-        {
-            placementIndicator.SetActive(true);
-            placementIndicator.transform.SetPositionAndRotation(PlacementPose.position, PlacementPose.rotation);
-        }
-        else
-        {
-            placementIndicator.SetActive(false);
-        }
-    }
-
-    void UpdatePlacementPose()
-    {
-        var screenCenter = Camera.current.ViewportToScreenPoint(new Vector3(0.5f, 0.5f));
-        var hits = new List<ARRaycastHit>();
-        aRRaycastManager.Raycast(screenCenter, hits, TrackableType.Planes);
-
-        placementPoseIsValid = hits.Count > 0;
-        if (placementPoseIsValid)
-        {
-            PlacementPose = hits[0].pose;
-        }
-    }
-
-    void ARPlaceObject()
-    {
-        // spawnedObject = Instantiate(arObjectToSpawn, PlacementPose.position, PlacementPose.rotation);
-        //var loc = new Location()
+        //if (spawnedObject == null && placementPoseIsValid && Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
         //{
-        //    Latitude = 53.2190007932827,
-        //    Longitude = 6.56569757712116,
-        //    Altitude = 0,
-        //    AltitudeMode = AltitudeMode.DeviceRelative
-        //};
+        //    ARPlaceObject();
+        //}
 
-        //var opts = new PlaceAtLocation.PlaceAtOptions()
-        //{
-        //    HideObjectUntilItIsPlaced = true,
-        //    MaxNumberOfLocationUpdates = 2,
-        //    MovementSmoothing = 0.5f,
-        //    UseMovingAverage = false
-        //};
 
-        //PlaceAtLocation.AddPlaceAtComponent(arObjectToSpawn, loc, opts);
+        //UpdatePlacementPose();
+        //UpdatePlacementIndicator();
+
+
+
+
     }
+    //void UpdatePlacementIndicator()
+    //{
+    //    if (spawnedObject == null && placementPoseIsValid)
+    //    {
+    //        placementIndicator.SetActive(true);
+    //        placementIndicator.transform.SetPositionAndRotation(PlacementPose.position, PlacementPose.rotation);
+    //    }
+    //    else
+    //    {
+    //        placementIndicator.SetActive(false);
+    //    }
+    //}
+
+    //void UpdatePlacementPose()
+    //{
+    //    var screenCenter = Camera.current.ViewportToScreenPoint(new Vector3(0.5f, 0.5f));
+    //    var hits = new List<ARRaycastHit>();
+    //    aRRaycastManager.Raycast(screenCenter, hits, TrackableType.Planes);
+
+    //    placementPoseIsValid = hits.Count > 0;
+    //    if (placementPoseIsValid)
+    //    {
+    //        PlacementPose = hits[0].pose;
+    //    }
+    //}
+
+    //void ARPlaceObject()
+    //{
+    //    // spawnedObject = Instantiate(arObjectToSpawn, PlacementPose.position, PlacementPose.rotation);
+    //    //var loc = new Location()
+    //    //{
+    //    //    Latitude = 53.2190007932827,
+    //    //    Longitude = 6.56569757712116,
+    //    //    Altitude = 0,
+    //    //    AltitudeMode = AltitudeMode.DeviceRelative
+    //    //};
+
+    //    //var opts = new PlaceAtLocation.PlaceAtOptions()
+    //    //{
+    //    //    HideObjectUntilItIsPlaced = true,
+    //    //    MaxNumberOfLocationUpdates = 2,
+    //    //    MovementSmoothing = 0.5f,
+    //    //    UseMovingAverage = false
+    //    //};
+
+    //    //PlaceAtLocation.AddPlaceAtComponent(arObjectToSpawn, loc, opts);
+    //}
 
     private async Task Run()
     {
@@ -132,8 +134,8 @@ public class test : MonoBehaviour
 
         var textStream = new MemoryStream(Encoding.UTF8.GetBytes(www.text));
         var loadedObj = new OBJLoader().Load(textStream);
-        //loadedObj.name = data.name;
-        //arObjectToSpawn = loadedObj;
+        loadedObj.transform.localScale = new Vector3(0.05f, 0.05f, 0.05f);
+        Instantiate(loadedObj, new Vector3(0, 0, 0), Quaternion.identity);
 
         var loc = new Location()
         {
