@@ -37,7 +37,7 @@ class ArtObjectController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'file' => 'required|max:2048',
+            'file' => 'required|max:1024000',
         ]);
             
         $data = collect($request->except('file'));
