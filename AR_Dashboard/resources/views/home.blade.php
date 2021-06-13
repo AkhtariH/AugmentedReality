@@ -105,13 +105,13 @@
                             <div class="col-md-6">
                                 <div class="input-group">
                                     <div class="input-group">
-                                        <input type="number" class="form-control" name="latitude" placeholder="Latitude">
+                                        <input type="number" step="any" class="form-control" name="latitude" placeholder="Latitude">
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="input-group">
-                                    <input type="number" class="form-control" name="longitude" placeholder="Longitude">
+                                    <input type="number" class="form-control" step="any"  name="longitude" placeholder="Longitude">
                                 </div>
                             </div>
                         </div>
