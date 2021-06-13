@@ -4,6 +4,7 @@ using System.IO;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using ARLocation;
 using Dummiesman;
 using Newtonsoft.Json;
 using UnityEngine;
@@ -23,7 +24,6 @@ public class test : MonoBehaviour
 
     void Start()
     {
-        Debug.Log("START");
         aRRaycastManager = FindObjectOfType<ARRaycastManager>();
         tesst();
     }
@@ -76,7 +76,24 @@ public class test : MonoBehaviour
 
     void ARPlaceObject()
     {
-        spawnedObject = Instantiate(arObjectToSpawn, PlacementPose.position, PlacementPose.rotation);
+        // spawnedObject = Instantiate(arObjectToSpawn, PlacementPose.position, PlacementPose.rotation);
+        //var loc = new Location()
+        //{
+        //    Latitude = 53.2190007932827,
+        //    Longitude = 6.56569757712116,
+        //    Altitude = 0,
+        //    AltitudeMode = AltitudeMode.DeviceRelative
+        //};
+
+        //var opts = new PlaceAtLocation.PlaceAtOptions()
+        //{
+        //    HideObjectUntilItIsPlaced = true,
+        //    MaxNumberOfLocationUpdates = 2,
+        //    MovementSmoothing = 0.5f,
+        //    UseMovingAverage = false
+        //};
+
+        //PlaceAtLocation.AddPlaceAtComponent(arObjectToSpawn, loc, opts);
     }
 
     private async Task Run()
@@ -115,8 +132,25 @@ public class test : MonoBehaviour
 
         var textStream = new MemoryStream(Encoding.UTF8.GetBytes(www.text));
         var loadedObj = new OBJLoader().Load(textStream);
+        //loadedObj.name = data.name;
+        //arObjectToSpawn = loadedObj;
 
-        loadedObj.name = data.name;
-        arObjectToSpawn = loadedObj;
+        var loc = new Location()
+        {
+            Latitude = data.latitude,
+            Longitude = data.longitude,
+            Altitude = data.floatingHeight,
+            AltitudeMode = AltitudeMode.GroundRelative
+        };
+
+        var opts = new PlaceAtLocation.PlaceAtOptions()
+        {
+            HideObjectUntilItIsPlaced = true,
+            MaxNumberOfLocationUpdates = 2,
+            MovementSmoothing = 0.5f,
+            UseMovingAverage = false
+        };
+
+        PlaceAtLocation.AddPlaceAtComponent(loadedObj, loc, opts);
     }
 }
