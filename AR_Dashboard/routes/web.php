@@ -90,5 +90,4 @@ Route::post('fire', [TTNController::class, 'index']);
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::resource('/test', App\Http\Controllers\ArtObjectController::class)->names('artobject');
+Route::resource('/home', App\Http\Controllers\ArtObjectController::class)->names('home');

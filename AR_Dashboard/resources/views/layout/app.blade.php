@@ -20,6 +20,7 @@
     <link href="{{ asset('/vendor/jqvmap/css/jqvmap.min.css') }}" rel="stylesheet">
 	<link rel="stylesheet" href="{{ asset('/vendor/chartist/css/chartist.min.css') }}">
     <link href="{{ asset('/vendor/bootstrap-select/dist/css/bootstrap-select.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('/vendor/toastr/css/toastr.min.css') }}">
     <link href="{{ asset('/css/style.css') }}" rel="stylesheet">
 	<link href="https://cdn.lineicons.com/2.0/LineIcons.css" rel="stylesheet">
 
@@ -386,6 +387,8 @@
 		
 	<!-- Apex Chart -->
 	<script src="{{ asset('/vendor/apexchart/apexchart.js') }}"></script>	
+
+    <script src="{{ asset('/vendor/toastr/js/toastr.min.js') }}"></script>
 	
 	<!-- Chart piety plugin files -->
 	<script src="{{ asset('/vendor/peity/jquery.peity.min.js') }}"></script>

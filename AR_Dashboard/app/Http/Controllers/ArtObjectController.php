@@ -15,18 +15,14 @@ class ArtObjectController extends Controller
      */
     public function index()
     {
-        //
+        $artObjects = ArtObject::where('user_id', Auth()->user()->id)->get();
+        $approvedCount = ArtObject::where([['user_id', '=', Auth()->user()->id], ['status', '=', 'Approved']])->count();
+        $rejectedCount = ArtObject::where([['user_id', '=', Auth()->user()->id], ['status', '=', 'Rejected']])->count();
+        // TODO: Average Stars
+
+        return view('home', compact('artObjects', 'approvedCount', 'rejectedCount'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -38,11 +34,8 @@ class ArtObjectController extends Controller
     {
         $request->validate([
             'file' => 'required|max:1024000',
-            'floatingHeight' => 'required',
-            'latitude' => 'required',
-            'longitude' => 'required',
             'name' => 'required',
-	    'description' => 'required'
+	        'description' => 'required'
         ]);
             
         $data = collect($request->except('file'));
@@ -58,15 +51,13 @@ class ArtObjectController extends Controller
                 'name' => $request->name,
                 'description' => $request->description,
                 'file_path' => $imageName,
-                'longitude' => $request->longitude,
-                'latitude' => $request->latitude,
-                'floatingHeight' => $request->floatingHeight
+                'longitude' => 0,
+                'latitude' => 0,
+                'floatingHeight' => 0
             ]);
         }
 
-
-
-        return redirect()->route('home')->with('success', 'Your profile has been updated!');
+        return redirect()->route('home.index')->with('success', 'Your profile has been updated!');
     }
 
     /**
@@ -86,9 +77,11 @@ class ArtObjectController extends Controller
      * @param  \App\Models\ArtObject  $artObject
      * @return \Illuminate\Http\Response
      */
-    public function edit(ArtObject $artObject)
+    public function edit($id)
     {
-        //
+        $artObject = ArtObject::findOrFail($id)->first();
+
+        return view('edithome', compact('artObject'));
     }
 
     /**
@@ -98,9 +91,36 @@ class ArtObjectController extends Controller
      * @param  \App\Models\ArtObject  $artObject
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ArtObject $artObject)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'file' => 'max:1024000',
+            'name' => 'required',
+	        'description' => 'required'
+        ]);
+        
+        $artObject = ArtObject::findOrFail($id);
+        $data = collect($request->except('file'));
+        if ($request->has('file')) {
+            $extension = substr($request->file->getClientOriginalName(), -3);
+            $imageName = time() . '.' . $extension;  
+            $content = file_get_contents($request->file);
+            
+            $request->file->move(public_path('img/uploads/'), $imageName);
+            $data->put('file', $imageName);
+            $artObject->update([
+                'name' => $request->name,
+                'description' => $request->description,
+                'file_path' => $imageName
+            ]);
+        } else {
+            $artObject->update([
+                'name' => $request->name,
+                'description' => $request->description
+            ]);
+        }
+
+        return redirect()->route('home.index')->with('success', 'Your art object has been updated!');
     }
 
     /**
@@ -109,8 +129,10 @@ class ArtObjectController extends Controller
      * @param  \App\Models\ArtObject  $artObject
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ArtObject $artObject)
+    public function destroy($id)
     {
-        //
+        ArtObject::findOrFail($id)->delete();
+
+        return redirect()->route('home.index')->with('success', 'Your art object has been deleted successfully!');
     }
 }
