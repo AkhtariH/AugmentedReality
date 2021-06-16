@@ -39,9 +39,10 @@ class ArtObjectController extends Controller
         $request->validate([
             'file' => 'required|max:1024000',
             'floatingHeight' => 'required',
-            'latitude' => 'required|float',
-            'longitude' => 'required|float',
-            'name' => 'required'
+            'latitude' => 'required',
+            'longitude' => 'required',
+            'name' => 'required',
+	    'description' => 'required'
         ]);
             
         $data = collect($request->except('file'));
