@@ -19,7 +19,7 @@ class ArtObjectController extends BaseController
     {
         $artObjects = ArtObject::all();
 
-        return $this->sendResponse(ArtObjectResource::collection($artObjects), 'Bridges retrieved successfully.');
+        return $this->sendResponse(ArtObjectResource::collection($artObjects), 'ArtObject retrieved successfully.');
     }
 
     /**

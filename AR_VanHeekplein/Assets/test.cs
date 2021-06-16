@@ -134,8 +134,6 @@ public class test : MonoBehaviour
 
         var textStream = new MemoryStream(Encoding.UTF8.GetBytes(www.text));
         var loadedObj = new OBJLoader().Load(textStream);
-        loadedObj.transform.localScale = new Vector3(0.05f, 0.05f, 0.05f);
-        Instantiate(loadedObj, new Vector3(0, 0, 0), Quaternion.identity);
 
         var loc = new Location()
         {
