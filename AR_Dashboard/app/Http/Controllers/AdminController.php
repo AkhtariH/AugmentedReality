@@ -7,13 +7,12 @@ use Validator,Redirect,Response;
 use Illuminate\Support\Facades\Hash;
 use Session;
 use App\Models\User;
-use App\Models\UserSupervisor;
+use App\Models\ArtObject;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
 
-use App\Http\Requests\AdminAssignRequest;
 
 class AdminController extends Controller
 {
@@ -22,9 +21,18 @@ class AdminController extends Controller
     }
 
     public function index() {
-        $userCount = User::count();
+        $artObjects = ArtObject::all();
+        $approvedCount = ArtObject::where([['status', '=', 'Approved']])->count();
+        $pendingCount = ArtObject::where([['status', '=', 'Pending']])->count();
+        $rejectedCount = ArtObject::where([['status', '=', 'Rejected']])->count();
+        // TODO: Average Stars
 
-        return view('admin.index', compact('userCount'));
+        foreach ($artObjects as $artObject) {
+            $user = User::find($artObject->user_id);
+            $artObject->username = $user->name;
+        }
+
+        return view('admin.index', compact('artObjects', 'approvedCount', 'rejectedCount', 'pendingCount'));
     }
 
     public function assign(Request $request) {
