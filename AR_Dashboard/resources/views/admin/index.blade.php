@@ -215,3 +215,58 @@
     </div>
  </div>
 @endsection
+@section('scripts')
+    <script>
+        var errorMsg = '{{ $errors->first() }}';
+        if (errorMsg != '' && errorMsg != null) {
+            toastr.error(errorMsg, "Error", {
+                timeOut: 20000,
+                closeButton: !0,
+                debug: !1,
+                newestOnTop: !0,
+                progressBar: !0,
+                positionClass: "toast-top-right",
+                preventDuplicates: !0,
+                onclick: null,
+                showDuration: "300",
+                hideDuration: "1000",
+                extendedTimeOut: "1000",
+                showEasing: "swing",
+                hideEasing: "linear",
+                showMethod: "fadeIn",
+                hideMethod: "fadeOut",
+                tapToDismiss: !1
+            }).css({
+                "width": "500px",
+                "max-width": "500px",
+                "font-size": "20px"
+            });
+        }
+
+        var successMsg = '{{ session("success") }}';
+        if (successMsg != '' && successMsg != null) {
+            toastr.success(successMsg, "Success", {
+                timeOut: 10000,
+                closeButton: !0,
+                debug: !1,
+                newestOnTop: !0,
+                progressBar: !0,
+                positionClass: "toast-top-right",
+                preventDuplicates: !0,
+                onclick: null,
+                showDuration: "300",
+                hideDuration: "1000",
+                extendedTimeOut: "1000",
+                showEasing: "swing",
+                hideEasing: "linear",
+                showMethod: "fadeIn",
+                hideMethod: "fadeOut",
+                tapToDismiss: !1
+            }).css({
+                "width": "500px",
+                "max-width": "500px",
+                "font-size": "20px"
+            });
+        }
+    </script>
+@endsection

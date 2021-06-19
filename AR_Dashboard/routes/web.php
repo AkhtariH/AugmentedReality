@@ -61,6 +61,8 @@ Route::middleware(['auth', 'is_admin'])->group( function () {
     // Admin Panel
     Route::resource('/admin', AdminController::class)
         ->names('admin');
+    Route::get('/admin/{id}/approve', [AdminController::class, 'approve'])->name('admin.approve');
+    Route::get('/admin/{id}/reject', [AdminController::class, 'reject'])->name('admin.reject');
 });
 
 Auth::routes();

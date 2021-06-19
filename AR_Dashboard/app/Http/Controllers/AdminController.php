@@ -35,8 +35,22 @@ class AdminController extends Controller
         return view('admin.index', compact('artObjects', 'approvedCount', 'rejectedCount', 'pendingCount'));
     }
 
-    public function approve(Request $request) {
-        
+    public function approve($id) {
+        $artObject = ArtObject::findOrFail($id);
+        $artObject->update([
+            'status' => 'Approved'
+        ]);
+
+        return redirect()->route('admin.index')->with('success', 'The art object has been approved!');
+    }
+
+    public function reject($id) {
+        $artObject = ArtObject::findOrFail($id);
+        $artObject->update([
+            'status' => 'Rejected'
+        ]);
+
+        return redirect()->route('admin.index')->with('success', 'The art object has been rejected!');
     }
 
 }
