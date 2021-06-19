@@ -90,55 +90,64 @@
             </div>
         </div>
     </div>
-    @if ($pendingCount > 0)
-        <div class="col-xl-12 col-xxl-12 col-lg-12 col-md-12">
-            <div class="card">
-                <div class="card-header border-0 pb-0 d-sm-flex d-block">
-                    <div>
-                        <h4 class="card-title mb-1">Art Upload</h4>
-                        <small class="mb-0">Here you can upload your 3D art model.</small>
-                    </div>
-                </div>
-                <div class="card-body orders-summary">
-                    <div class="basic-form custom_file_input">
-                        <form action="{{ route('home.store') }}" method="POST" enctype="multipart/form-data">
-                            @csrf
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="input-group">
-                                        <input type="text" name="name" class="form-control" placeholder="Name">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="input-group">
-                                        <textarea class="form-control" rows="5" name="description" placeholder="Description"></textarea>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="input-group">
-                                        <div class="custom-file">
-                                            <input type="file" id="file" name="file" class="custom-file-input">
-                                            <label class="custom-file-label">Choose file</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="input-group" style="margin-top: 20px">
-                                <button type="submit" class="btn btn-primary" name="submit">
-                                    {{ __('Upload') }}
-                                </button>
-                            </div>
-                        </form>
-                    </div>
+    <div class="col-xl-12 col-xxl-12 col-lg-12 col-md-12">
+        <div class="card">
+            <div class="card-header border-0 pb-0 d-sm-flex d-block">
+                <div>
+                    <h4 class="card-title mb-1">Pending validation</h4>
+                    <small class="mb-0">List of art objects that have to be validated.</small>
                 </div>
             </div>
+            <div class="card-body orders-summary">
+                @if ($pendingCount > 0)
+                    <div class="table-responsive">
+                        <table class="table table-responsive-md">
+                            <thead>
+                                <tr>
+                                    <th style="width:80px;"><strong>#</strong></th>
+                                    <th><strong>ARTIST</strong></th>
+                                    <th><strong>NAME</strong></th>
+                                    <th><strong>DESCRIPTION</strong></th>
+                                    <th><strong>LOCATION</strong></th>
+                                    <th><strong>ALTITUDE</strong></th>
+                                    <th><strong>DATE</strong></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($artObjects as $object)
+                                    @if ($object->status == 'Pending')
+                                        <tr>
+                                            <td><strong>{{ $object->id }}</strong></td>
+                                            <td>{{ $object->username }}</td>
+                                            <td>{{ $object->name }}</td>
+                                            <td>{{ $object->description }}</td>
+                                            <td>{{ $object->latitude }}, {{ $object->longitude }}</td>
+                                            <td>{{ $object->floatingHeight }}</td>
+                                            <td>{{ $object->created_at->format('d.m.Y') }}</td>
+                                            <td>
+                                                <div class="d-flex">
+                                                    <a href="{{ route('admin.approve', $object->id) }}" class="btn btn-success shadow btn-xs sharp mr-1"><i class="fa fa-check"></i></a>
+                                                    <a href="{{ route('admin.reject', $object->id) }}" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-times"></i></a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endif
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                @else
+                    <p class="text-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="green" class="bi bi-check-all" viewBox="0 0 16 16">
+                            <path d="M8.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L2.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093L8.95 4.992a.252.252 0 0 1 .02-.022zm-.92 5.14.92.92a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 1 0-1.091-1.028L9.477 9.417l-.485-.486-.943 1.179z"/>
+                          </svg>
+                        <span style="vertical-align: middle;margin-left: 2.5px;">No art objects to review.</span>
+                    </p>
+                @endif
+            </div>
         </div>
-    @endif
+    </div>
     <div class="col-xl-12 col-xxl-12 col-lg-12 col-md-12">
         <div class="card">
             <div class="card-header border-0 pb-0 d-sm-flex d-block">
@@ -159,15 +168,15 @@
                                 <th><strong>LOCATION</strong></th>
                                 <th><strong>ALTITUDE</strong></th>
                                 <th><strong>DATE</strong></th>
-                                <th><strong>REVIEW</strong></th>
+                                <th style="width:100px;"><strong>REVIEW</strong></th>
                                 <th><strong>STATUS</strong></th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($artObjects as $key=>$object)
+                            @foreach ($artObjects as $object)
                                 <tr>
-                                    <td><strong>{{ ++$key }}</strong></td>
+                                    <td><strong>{{ $object->id }}</strong></td>
                                     <td>{{ $object->username }}</td>
                                     <td>{{ $object->name }}</td>
                                     <td>{{ $object->description }}</td>
@@ -182,10 +191,10 @@
                                                 <svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"></rect><circle fill="#000000" cx="5" cy="12" r="2"></circle><circle fill="#000000" cx="12" cy="12" r="2"></circle><circle fill="#000000" cx="19" cy="12" r="2"></circle></g></svg>
                                             </button>
                                             <div class="dropdown-menu">
-                                                <a href="{{ route('home.edit', $object->id) }}" class="dropdown-item">
+                                                <a href="{{ route('admin.edit', $object->id) }}" class="dropdown-item">
                                                     Edit
                                                 </a>
-                                                <form action="{{ route('home.destroy', $object->id) }}" method="post" class="removeForm">
+                                                <form action="{{ route('admin.destroy', $object->id) }}" method="post" class="removeForm">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="dropdown-item" onclick="return confirm('Are you sure?')">

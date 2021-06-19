@@ -82,7 +82,7 @@ class ArtObjectController extends Controller
      */
     public function edit($id)
     {
-        $artObject = ArtObject::findOrFail($id)->first();
+        $artObject = ArtObject::findOrFail($id);
 
         return view('edithome', compact('artObject'));
     }

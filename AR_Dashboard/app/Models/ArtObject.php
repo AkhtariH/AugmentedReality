@@ -21,6 +21,7 @@ class ArtObject extends Model
         'file_path',
         'latitude',
         'longitude',
-        'floatingHeight'
+        'floatingHeight',
+        'status'
     ];
 }

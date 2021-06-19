@@ -18,9 +18,26 @@
                         @csrf
                         @method('PUT')
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="input-group">
                                     <input type="text" name="name" value="{{ $artObject->name }}" class="form-control" placeholder="Name">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <input type="number" name="floatingHeight" value="{{ $artObject->floatingHeight }}" step="any" class="form-control" placeholder="Altitude">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <input type="number" name="latitude" value="{{ $artObject->latitude }}" step="any" class="form-control" placeholder="Latitude">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <input type="number" name="longitude" value="{{ $artObject->longitude }}" step="any" class="form-control" placeholder="Longitude">
                                 </div>
                             </div>
                         </div>
