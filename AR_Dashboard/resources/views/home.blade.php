@@ -101,9 +101,26 @@
                     <form action="{{ route('home.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="input-group">
                                     <input type="text" name="name" class="form-control" placeholder="Name">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <input type="number" name="floatingHeight" step="any" class="form-control" placeholder="Altitude">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <input type="number" name="latitude" step="any" class="form-control" placeholder="Latitude">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <input type="number" name="longitude" step="any" class="form-control" placeholder="Longitude">
                                 </div>
                             </div>
                         </div>
@@ -191,6 +208,9 @@
                             @endforeach
                         </tbody>
                     </table>
+                </div>
+                <div class="row" style="justify-content: center !important;margin-top:10px;">
+                    {!! $artObjects->links() !!}
                 </div>
             </div>
         </div>

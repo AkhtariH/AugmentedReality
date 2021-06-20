@@ -49,45 +49,20 @@ Route::middleware('guest')->group( function () {
 
 Route::middleware('auth')->group( function () {
     // Dashboard
-    Route::resource('dashboard', DashboardController::class)
-        ->names('dashboard');
+    Route::resource('/home', App\Http\Controllers\ArtObjectController::class)->names('home');
 
     // Profile
     Route::resource('/profile', ProfileController::class)
         ->names('profile');
+    
 });
 
 Route::middleware(['auth', 'is_admin'])->group( function () {
     // Admin Panel
-    Route::resource('admin/user', UserController::class)
-        ->names('admin.user');
-    Route::get('admin', [AdminController::class, 'index'])
-        ->name('admin.index');
-    Route::post('admin/assign', [AdminController::class, 'assign'])
-        ->name('admin.assign');
-    Route::post('admin/user/overtime', [AdminController::class, 'overtime_email'])
-        ->name('admin.user.overtime');
-    Route::post('admin/user/overtime/max', [AdminController::class, 'overtime_max'])
-        ->name('admin.user.overtimemax');
-    Route::post('admin/delete', [AdminController::class, 'deleteAssign'])
-        ->name('admin.delete');
-
-
-    Route::resource('/admin/hours-per-day', HpdController::class)
-        ->names('admin.hpd');
-    Route::resource('/admin/holiday', HolidayController::class)
-        ->names('admin.holiday');    
-
+    Route::resource('/admin', AdminController::class)
+        ->names('admin');
+    Route::get('/admin/{id}/approve', [AdminController::class, 'approve'])->name('admin.approve');
+    Route::get('/admin/{id}/reject', [AdminController::class, 'reject'])->name('admin.reject');
 });
 
-
-
-// AJAX requests
-Route::post('hpd', [DashboardController::class, 'getHPD'])
-    ->middleware('auth')
-    ->name('hpd');
-Route::post('fire', [TTNController::class, 'index']);
-
 Auth::routes();
-
-Route::resource('/home', App\Http\Controllers\ArtObjectController::class)->names('home');

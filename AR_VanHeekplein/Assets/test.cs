@@ -37,10 +37,10 @@ public class test : MonoBehaviour
     // need to update placement indicator, placement pose and spawn 
     void Update()
     {
-        //if (spawnedObject == null && placementPoseIsValid && Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
-        //{
-        //    ARPlaceObject();
-        //}
+        if (spawnedObject == null && placementPoseIsValid && Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+        {
+            ARPlaceObject();
+        }
 
 
         //UpdatePlacementPose();
@@ -76,27 +76,27 @@ public class test : MonoBehaviour
     //    }
     //}
 
-    //void ARPlaceObject()
-    //{
-    //    // spawnedObject = Instantiate(arObjectToSpawn, PlacementPose.position, PlacementPose.rotation);
-    //    //var loc = new Location()
-    //    //{
-    //    //    Latitude = 53.2190007932827,
-    //    //    Longitude = 6.56569757712116,
-    //    //    Altitude = 0,
-    //    //    AltitudeMode = AltitudeMode.DeviceRelative
-    //    //};
+    void ARPlaceObject()
+    {
+        spawnedObject = Instantiate(arObjectToSpawn, PlacementPose.position, PlacementPose.rotation);
+        var loc = new Location()
+        {
+            Latitude = 53.227060665274415,
+            Longitude = 6.559411701442516,
+            Altitude = 0,
+            AltitudeMode = AltitudeMode.DeviceRelative
+        };
 
-    //    //var opts = new PlaceAtLocation.PlaceAtOptions()
-    //    //{
-    //    //    HideObjectUntilItIsPlaced = true,
-    //    //    MaxNumberOfLocationUpdates = 2,
-    //    //    MovementSmoothing = 0.5f,
-    //    //    UseMovingAverage = false
-    //    //};
+        var opts = new PlaceAtLocation.PlaceAtOptions()
+        {
+            HideObjectUntilItIsPlaced = true,
+            MaxNumberOfLocationUpdates = 2,
+            MovementSmoothing = 0.5f,
+            UseMovingAverage = false
+        };
 
-    //    //PlaceAtLocation.AddPlaceAtComponent(arObjectToSpawn, loc, opts);
-    //}
+        PlaceAtLocation.AddPlaceAtComponent(arObjectToSpawn, loc, opts);
+    }
 
     private async Task Run()
     {
@@ -134,23 +134,24 @@ public class test : MonoBehaviour
 
         var textStream = new MemoryStream(Encoding.UTF8.GetBytes(www.text));
         var loadedObj = new OBJLoader().Load(textStream);
+        
+        arObjectToSpawn = loadedObj;
+        //var loc = new Location()
+        //{
+        //    Latitude = 53.227060665274415,
+        //    Longitude = 6.559411701442516,
+        //    Altitude = 0,
+        //    AltitudeMode = AltitudeMode.GroundRelative
+        //};
 
-        var loc = new Location()
-        {
-            Latitude = data.latitude,
-            Longitude = data.longitude,
-            Altitude = data.floatingHeight,
-            AltitudeMode = AltitudeMode.GroundRelative
-        };
+        //var opts = new PlaceAtLocation.PlaceAtOptions()
+        //{
+        //    HideObjectUntilItIsPlaced = true,
+        //    MaxNumberOfLocationUpdates = 2,
+        //    MovementSmoothing = 0.5f,
+        //    UseMovingAverage = false
+        //};
 
-        var opts = new PlaceAtLocation.PlaceAtOptions()
-        {
-            HideObjectUntilItIsPlaced = true,
-            MaxNumberOfLocationUpdates = 2,
-            MovementSmoothing = 0.5f,
-            UseMovingAverage = false
-        };
-
-        PlaceAtLocation.AddPlaceAtComponent(loadedObj, loc, opts);
+        //PlaceAtLocation.AddPlaceAtComponent(loadedObj, loc, opts);
     }
 }

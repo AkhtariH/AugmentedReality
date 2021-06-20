@@ -1,7 +1,7 @@
 @extends('layout.app')
 
-@section('title', 'Dashboard')
-@section('subtitle', 'Edit Art Object: ' . $artObject->name)
+@section('title', 'Administrator Panel')
+@section('subtitle', 'Edit Art Object: ' . $artObject->name . ' of ' . $user->name)
 
 @section('content')
 @if($errors->any()) 
@@ -14,7 +14,7 @@
         <div class="card">
             <div class="card-body orders-summary">
                 <div class="basic-form custom_file_input">
-                    <form action="{{ route('home.update', $artObject->id) }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('admin.update', $artObject->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div class="row">

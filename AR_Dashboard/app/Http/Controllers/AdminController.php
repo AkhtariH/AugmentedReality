@@ -7,13 +7,12 @@ use Validator,Redirect,Response;
 use Illuminate\Support\Facades\Hash;
 use Session;
 use App\Models\User;
-use App\Models\UserSupervisor;
+use App\Models\ArtObject;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
 
-use App\Http\Requests\AdminAssignRequest;
 
 class AdminController extends Controller
 {
@@ -22,83 +21,100 @@ class AdminController extends Controller
     }
 
     public function index() {
-        $userCount = User::count();
+        $artObjects = ArtObject::all();
+        $artObjectsPaginate = ArtObject::paginate(9);
+        $approvedCount = ArtObject::where([['status', '=', 'Approved']])->count();
+        $pendingCount = ArtObject::where([['status', '=', 'Pending']])->count();
+        $rejectedCount = ArtObject::where([['status', '=', 'Rejected']])->count();
+        // TODO: Average Stars
 
-        return view('admin.index', compact('userCount'));
+        foreach ($artObjects as $artObject) {
+            $user = User::find($artObject->user_id);
+            $artObject->username = $user->name;
+        }
+
+        return view('admin.index', compact('artObjects', 'approvedCount', 'rejectedCount', 'pendingCount', 'artObjectsPaginate'));
     }
 
-    public function assign(Request $request) {
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\ArtObject  $artObject
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $artObject = ArtObject::findOrFail($id);
+        $user = User::findOrFail($artObject->user_id);
+        return view('admin.edit', compact('artObject', 'user'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\ArtObject  $artObject
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
         $request->validate([
-            'data' => 'required',
-            'user' => 'required'
+            'file' => 'max:1024000',
+            'name' => 'required',
+            'latitude' => 'required',
+            'longitude' => 'required',
+            'floatingHeight' => 'required',
+	        'description' => 'required'
         ]);
         
-        $user = User::findOrFail($request->user);
-        $supervisorFirstName = explode(' ', $request->data)[0];
-        $supervisorLastName = explode(' ', $request->data)[1];
-        $supervisor = User::where([
-            ['first_name', '=', $supervisorFirstName],
-            ['last_name', '=', $supervisorLastName],
-        ])->first();
-        $userSupervisor = UserSupervisor::where('user_id', $user->id)->first();
-
-        if ($userSupervisor == null) {
-            UserSupervisor::create([
-                'user_id' => $user->id,
-                'supervisor_id' => $supervisor->id
+        $artObject = ArtObject::findOrFail($id);
+        $data = collect($request->except('file'));
+        if ($request->has('file')) {
+            $extension = substr($request->file->getClientOriginalName(), -3);
+            $imageName = time() . '.' . $extension;  
+            $content = file_get_contents($request->file);
+            
+            $request->file->move(public_path('img/uploads/'), $imageName);
+            $data->put('file', $imageName);
+            $artObject->update([
+                'name' => $request->name,
+                'description' => $request->description,
+                'file_path' => $imageName,
+                'longitude' => $request->longitude,
+                'latitude' => $request->latitude,
+                'floatingHeight' => $request->floatingHeight,
+                'status' => 'Pending'
             ]);
         } else {
-            $userSupervisor->update([
-                'supervisor_id' => $supervisor->id
+            $artObject->update([
+                'name' => $request->name,
+                'description' => $request->description,
+                'longitude' => $request->longitude,
+                'latitude' => $request->latitude,
+                'floatingHeight' => $request->floatingHeight,
+                'status' => 'Pending'
             ]);
         }
 
-        return response()->json(array('msg', 'Success!'), 200);
+        return redirect()->route('admin.index')->with('success', 'The art object has been updated!');
     }
 
-    public function deleteAssign(Request $request) {
-        $request->validate([
-            'user' => 'required'
+    public function approve($id) {
+        $artObject = ArtObject::findOrFail($id);
+        $artObject->update([
+            'status' => 'Approved'
         ]);
-        
-        $userSupervisor = UserSupervisor::where('user_id', $request->user)->first();
-        $userSupervisor->delete();
 
-        return response()->json(array('msg', 'Success!'), 200);
+        return redirect()->route('admin.index')->with('success', 'The art object has been approved!');
     }
 
-    public function overtime_email(Request $request) {
-        $request->validate([
-            'user' => 'required',
-            'data' => 'required'
+    public function reject($id) {
+        $artObject = ArtObject::findOrFail($id);
+        $artObject->update([
+            'status' => 'Rejected'
         ]);
 
-        if ($request->data == 'true') {
-            $bool = true;
-        } else {
-            $bool = false;
-        }
-        
-        $user = User::findOrFail($request->user);
-        $user->update([
-            'overtime_email' => $bool
-        ]);
-
-        return response()->json(array('msg', 'Success!'), 200);
-    }
-
-    public function overtime_max(Request $request) {
-        $request->validate([
-            'value' => 'required',
-            'user' => 'required'
-        ]);
-        
-        $user = User::findOrFail($request->user);
-        $user->update([
-            'max_overtime' => $request->value
-        ]);
-
-        return response()->json(array('msg', 'Success!'), 200);
+        return redirect()->route('admin.index')->with('success', 'The art object has been rejected!');
     }
 
 }

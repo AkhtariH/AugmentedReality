@@ -15,7 +15,7 @@ class ArtObjectController extends Controller
      */
     public function index()
     {
-        $artObjects = ArtObject::where('user_id', Auth()->user()->id)->get();
+        $artObjects = ArtObject::where('user_id', Auth()->user()->id)->latest()->paginate(9);
         $approvedCount = ArtObject::where([['user_id', '=', Auth()->user()->id], ['status', '=', 'Approved']])->count();
         $rejectedCount = ArtObject::where([['user_id', '=', Auth()->user()->id], ['status', '=', 'Rejected']])->count();
         // TODO: Average Stars
@@ -34,6 +34,9 @@ class ArtObjectController extends Controller
     {
         $request->validate([
             'file' => 'required|max:1024000',
+            'latitude' => 'required',
+            'longitude' => 'required',
+            'floatingHeight' => 'required',
             'name' => 'required',
 	        'description' => 'required'
         ]);
@@ -51,13 +54,13 @@ class ArtObjectController extends Controller
                 'name' => $request->name,
                 'description' => $request->description,
                 'file_path' => $imageName,
-                'longitude' => 0,
-                'latitude' => 0,
-                'floatingHeight' => 0
+                'longitude' => $request->longitude,
+                'latitude' => $request->latitude,
+                'floatingHeight' => $request->floatingHeight
             ]);
         }
 
-        return redirect()->route('home.index')->with('success', 'Your profile has been updated!');
+        return redirect()->route('home.index')->with('success', 'Your art has been uploaded!');
     }
 
     /**
@@ -79,7 +82,7 @@ class ArtObjectController extends Controller
      */
     public function edit($id)
     {
-        $artObject = ArtObject::findOrFail($id)->first();
+        $artObject = ArtObject::findOrFail($id);
 
         return view('edithome', compact('artObject'));
     }
@@ -96,6 +99,9 @@ class ArtObjectController extends Controller
         $request->validate([
             'file' => 'max:1024000',
             'name' => 'required',
+            'latitude' => 'required',
+            'longitude' => 'required',
+            'floatingHeight' => 'required',
 	        'description' => 'required'
         ]);
         
@@ -111,12 +117,20 @@ class ArtObjectController extends Controller
             $artObject->update([
                 'name' => $request->name,
                 'description' => $request->description,
-                'file_path' => $imageName
+                'file_path' => $imageName,
+                'longitude' => $request->longitude,
+                'latitude' => $request->latitude,
+                'floatingHeight' => $request->floatingHeight,
+                'status' => 'Pending'
             ]);
         } else {
             $artObject->update([
                 'name' => $request->name,
-                'description' => $request->description
+                'description' => $request->description,
+                'longitude' => $request->longitude,
+                'latitude' => $request->latitude,
+                'floatingHeight' => $request->floatingHeight,
+                'status' => 'Pending'
             ]);
         }
 

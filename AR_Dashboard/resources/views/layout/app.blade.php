@@ -75,7 +75,7 @@
                 <nav class="navbar navbar-expand">
                     <div class="collapse navbar-collapse justify-content-between">
                         <div class="header-left">
-                            <div class="search_bar dropdown show">
+                            {{-- <div class="search_bar dropdown show">
                                 <div class="dropdown-menu p-0 m-0 show">
                                     <form>
                                         <input class="form-control" type="search" placeholder="Search Here" aria-label="Search">
@@ -84,7 +84,7 @@
 								<span class="search_icon p-3 c-pointer" data-toggle="dropdown">
                                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M23.7871 22.7761L17.9548 16.9437C19.5193 15.145 20.4665 12.7982 20.4665 10.2333C20.4665 4.58714 15.8741 0 10.2333 0C4.58714 0 0 4.59246 0 10.2333C0 15.8741 4.59246 20.4665 10.2333 20.4665C12.7982 20.4665 15.145 19.5193 16.9437 17.9548L22.7761 23.7871C22.9144 23.9255 23.1007 24 23.2816 24C23.4625 24 23.6488 23.9308 23.7871 23.7871C24.0639 23.5104 24.0639 23.0528 23.7871 22.7761ZM1.43149 10.2333C1.43149 5.38004 5.38004 1.43681 10.2279 1.43681C15.0812 1.43681 19.0244 5.38537 19.0244 10.2333C19.0244 15.0812 15.0812 19.035 10.2279 19.035C5.38004 19.035 1.43149 15.0865 1.43149 10.2333Z" fill="#A4A4A4"/></svg>
                                 </span>
-                            </div>
+                            </div> --}}
                         </div>
 
                         <ul class="navbar-nav header-right">
@@ -204,28 +204,46 @@
         <div class="deznav">
             <div class="deznav-scroll">
 				<ul class="metismenu" id="menu">
-                    <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-							<i class="flaticon-381-networking"></i>
-							<span class="nav-text">Dashboard</span>
-						</a>
-                        <ul aria-expanded="false">
-							<li><a href="{{ route('home.index') }}">Dashboard</a></li>
-                            @if (Route::is('admin.*') == false)
-                                @if (Auth()->user()->isAdmin())
-                                    <li><a href="{{ route('admin.index') }}">Admin Panel</a></li>
-                                @endif
-                            @endif
-						</ul>
-                    </li>
-                    <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-							<i class="flaticon-381-television"></i>
-							<span class="nav-text">Contact</span>
-						</a>
-                        <ul aria-expanded="false">
-                            <li><a href="./app-profile.html">Contact</a></li>
-                            <li><a href="./app-calender.html">Imprint</a></li>
-                        </ul>
-                    </li>
+                    @if (Route::is('admin.*') == false)
+                        <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                                <i class="flaticon-381-networking"></i>
+                                <span class="nav-text">Dashboard</span>
+                            </a>
+                            <ul aria-expanded="false">
+                                <li><a href="{{ route('home.index') }}">Dashboard</a></li>
+                                
+                                    @if (Auth()->user()->isAdmin())
+                                        <li><a href="{{ route('admin.index') }}">Admin Panel</a></li>
+                                    @endif
+                                
+                            </ul>
+                        </li>
+                        <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                                <i class="flaticon-381-television"></i>
+                                <span class="nav-text">Contact</span>
+                            </a>
+                            <ul aria-expanded="false">
+                                <li><a href="./app-profile.html">Contact</a></li>
+                                <li><a href="./app-calender.html">Imprint</a></li>
+                            </ul>
+                        </li>
+                    @else
+                        <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                                <i class="flaticon-381-networking"></i>
+                                <span class="nav-text">Admin Panel</span>
+                            </a>
+                            <ul aria-expanded="false">
+                                <li><a href="{{ route('admin.index') }}">Admin Panel</a></li>
+                            </ul>
+                        </li>
+                        <li><a class="ai-icon" href="{{ route('home.index') }}" aria-expanded="false">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-arrow-left-square" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm11.5 5.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
+                              </svg>
+                                <span class="nav-text">Dashboard</span>
+                            </a>
+                        </li>
+                    @endif
                 </ul>
             
 				<div class="copyright">
