@@ -1,5 +1,6 @@
 @extends('layout.form')
 
+@section('title', 'Log In')
 @section('content')
 <div class="col-md-6">
     <div class="authincation-content">
