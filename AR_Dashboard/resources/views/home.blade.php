@@ -23,7 +23,7 @@
 
                     </span>
                     <div class="media-body text-white">
-                        <h3 class="mb-0 text-white"><span class="counter ml-0">{{ count($artObjects) }}</span></h3>
+                        <h3 class="mb-0 text-white"><span class="counter ml-0">{{ $objectsCount }}</span></h3>
                         <p class="mb-0">Art Objects</p>
                     </div>
                 </div>
@@ -44,7 +44,7 @@
                     <div class="media-body text-white">
                         <h3 class="mb-0 text-white"><span class="counter ml-0">{{ $approvedCount }}</h3>
                         <p class="mb-0">Approved</p>
-                        <small>{{ count($artObjects) > 0 ? ($approvedCount / count($artObjects)) * 100 : 0 }}%</small>
+                        <small>{{ $objectsCount > 0 ? round(($approvedCount / $objectsCount) * 100, 2) : 0 }}%</small>
                     </div>
                 </div>
             </div>
@@ -64,7 +64,7 @@
                     <div class="media-body text-white">
                         <h3 class="mb-0 text-white"><span class="counter ml-0">{{ $rejectedCount }}</span></h3>
                         <p class="mb-0">Rejected</p>
-                        <small>{{ count($artObjects) > 0 ? ($rejectedCount / count($artObjects)) * 100 : 0 }}%</small>
+                        <small>{{ $objectsCount > 0 ? round(($rejectedCount / $objectsCount) * 100, 2) : 0 }}%</small>
                     </div>
                 </div>
             </div>

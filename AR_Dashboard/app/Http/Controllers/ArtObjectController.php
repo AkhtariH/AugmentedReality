@@ -18,6 +18,7 @@ class ArtObjectController extends Controller
     public function index()
     {
         $artObjects = ArtObject::where('user_id', Auth()->user()->id)->latest()->paginate(9);
+        $objectsCount =  ArtObject::where('user_id', Auth()->user()->id)->count();
         $approvedCount = ArtObject::where([['user_id', '=', Auth()->user()->id], ['status', '=', 'Approved']])->count();
         if (Auth()->user()->isAdmin()) {
             $pendingCount = ArtObject::where([['status', '=', 'Pending']])->count();
@@ -33,7 +34,7 @@ class ArtObjectController extends Controller
         $rejectedCount = ArtObject::where([['user_id', '=', Auth()->user()->id], ['status', '=', 'Rejected']])->count();
         // TODO: Average Stars
 
-        return view('home', compact('artObjects', 'approvedCount', 'rejectedCount', 'pendingCount', 'notificationObjects'));
+        return view('home', compact('artObjects', 'approvedCount', 'objectsCount', 'rejectedCount', 'pendingCount', 'notificationObjects'));
     }
 
 
