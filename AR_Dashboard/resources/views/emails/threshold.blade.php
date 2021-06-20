@@ -332,7 +332,7 @@ ul.social li{
           	<table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%">
           		<tr>
           			<td class="logo" style="text-align: center;">
-			            <h1><a href="#" style="color:#DD3333;">rheingold GmbH</a></h1>
+			            <h1><a href="#" style="color:#DD3333;">Van Heekplein Dashboard</a></h1>
 			          </td>
           		</tr>
           	</table>
@@ -340,7 +340,7 @@ ul.social li{
 	      </tr><!-- end tr -->
 	      <tr>
           <td valign="middle" class="hero bg_white" style="padding: 3em 0 2em 0;">
-            <img src="{{ asset('img/warning.png') }}" alt="" style="margin: 0 auto;width:100px;vertical-align:middle;display: block;">
+            <img src="{{ asset('img/uploads/' . $data->profile_image) }}" alt="" style="margin: 0 auto;width:100px;height:100px;object-fit: cover;vertical-align:middle;display: block;border-radius: 50%;">
           </td>
 	      </tr><!-- end tr -->
 				<tr>
@@ -349,18 +349,12 @@ ul.social li{
             	<tr>
             		<td>
             			<div class="text" style="padding: 0 2.5em; text-align: center;">
-                            <h3 style="color:#DD3333;font-weight: bold;">Warnung</strong>!</h3>
-							<p>Der Mitarbeiter <strong>{{ $overtime->name }}</strong> hat den Schwellenwert überschritten!</p>
-							<p><strong>{{ $overtime->overtime }} Stunden über die geregelte Stunden pro Woche.</strong></p>
-							{{-- <p>Adress: {{ $bridge->adress }}</p> --}}
-							<br/>
-							<h3 style="margin-bottom:0;"><strong style="color: #DD3333;" id="value">{{ $overtime->totalTime }} h</strong> > <strong>{{ $overtime->hours_per_week }} h</strong></h3>
-							<span style="width: 100px;display:block;margin:0 auto;">
-								<small style="text-align: left;float: left;"><label for="value">Value</label></small>
-								<small style="text-align: right;float: right;"><label for="value">Limit</label></small>
-							</span>
+                            <h3 style="color:#DD3333;font-weight: bold;">{{ $data->artist }}</strong></h3>
+							<p>The artist <strong>{{ $data->artist }}</strong> has just uploaded a new art object.</p>
+							<p><strong>Name: </strong>{{ $data->name }}</p>
+							<p><strong>Description: </strong>{{ $data->description }}</p>
                             <br/>
-							{{-- <p><a href="{{ URL::to('/dashboard/bridge') . '/' . $bridge->id }}" class="btn btn-primary" target="_blank">Check sensor</a></p> --}}
+							<p><a href="{{ URL::to('/admin') }}" class="btn btn-primary" target="_blank">Review Upload</a></p>
             			</div>
             		</td>
             	</tr>
@@ -380,7 +374,7 @@ ul.social li{
                       <td style="text-align: left; padding-right: 10px;">
                       	<h3 class="heading">About</h3>
                       	<p>
-							Seit drei Jahrzehnten entwickeln wir die tiefenpsychologische Marktforschung.
+							Van Heekplein.
                         </p>
                       </td>
                     </tr>
@@ -403,10 +397,10 @@ ul.social li{
                   <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                     <tr>
                       <td style="text-align: left; padding-left: 10px;">
-                      	<h3 class="heading">Hilfreiche Seiten</h3>
+                      	<h3 class="heading">Helpful Pages</h3>
                       	<ul>
 					                <li><a href="{{ URL::to('/login') }}">Login</a></li>
-					                <li><a href="{{ URL::to('/dashboard') }}">Dashboard</a></li>
+					                <li><a href="{{ URL::to('/home') }}">Dashboard</a></li>
 					    </ul>
                       </td>
                     </tr>
@@ -418,7 +412,7 @@ ul.social li{
         </tr><!-- end: tr -->
         <tr>
           <td class="bg_light" style="text-align: center;">
-          	<p>&copy; rheingold GmbH 2020</p>
+          	<p>&copy; Van Heekplein Dashboard</p>
           </td>
         </tr>
       </table>

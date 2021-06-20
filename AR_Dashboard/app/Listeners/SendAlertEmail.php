@@ -6,6 +6,7 @@ use App\Events\ThresholdExceeded;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Mail\Message;
+use App\Models\User;
 use Mail;
 
 
@@ -29,12 +30,16 @@ class SendAlertEmail
      */
     public function handle(ThresholdExceeded $event)
     {
-        $overtime = $event->overtime;
+        $data = $event->data;
+        $admins = User::where('type', 'admin')->get();
+        $to = [];
+        foreach ($admins as $admin) {
+            array_push($to, $admin->email);
+        }
 
-  
-        Mail::send('emails.threshold', ['overtime' => $overtime], function (Message $message) use ($overtime){
-            $message->subject(config('app.name') . ' - Überstunden Warnung');
-            $message->to($overtime->supervisor_email);
+        Mail::send('emails.threshold', ['data' => $data], function (Message $message) use ($to){
+            $message->subject(config('app.name') . ' - New Art Object');
+            $message->to($to);
         });
     }
 }
