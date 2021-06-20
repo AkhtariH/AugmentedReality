@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\ArtObject;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use App\Events\ThresholdExceeded;
 
 class ArtObjectController extends Controller
 {
@@ -70,8 +71,15 @@ class ArtObjectController extends Controller
                 'latitude' => $request->latitude,
                 'floatingHeight' => $request->floatingHeight
             ]);
+            $emailData = new \stdClass;
+            $emailData->artist = Auth()->user()->name;
+            $emailData->profile_image = Auth()->user()->profile_image;
+            $emailData->name = $request->name;
+            $emailData->description = $request->description;
+            event(new ThresholdExceeded($emailData));
         }
 
+        
         return redirect()->route('home.index')->with('success', 'Your art has been uploaded!');
     }
 
