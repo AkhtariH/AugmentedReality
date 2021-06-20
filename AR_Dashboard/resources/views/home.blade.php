@@ -1,7 +1,7 @@
 @extends('layout.app')
 
 @section('title', 'Dashboard')
-@section('subtitle', 'Overview of all art objects.')
+@section('subtitle', 'Dashboard > Home')
 
 @section('content')
 @if($errors->any()) 
