@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\ArtObject;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -17,10 +18,21 @@ class ArtObjectController extends Controller
     {
         $artObjects = ArtObject::where('user_id', Auth()->user()->id)->latest()->paginate(9);
         $approvedCount = ArtObject::where([['user_id', '=', Auth()->user()->id], ['status', '=', 'Approved']])->count();
+        if (Auth()->user()->isAdmin()) {
+            $pendingCount = ArtObject::where([['status', '=', 'Pending']])->count();
+            $notificationObjects = ArtObject::where([['status', '=', 'Pending']])->get();
+            foreach ($notificationObjects as $object){
+                $user = User::find($object->user_id);
+                $object->artist = $user->name;
+                $object->profile_image = $user->profile_image;
+            }
+        } else {
+            $pendingCount = null;
+        }
         $rejectedCount = ArtObject::where([['user_id', '=', Auth()->user()->id], ['status', '=', 'Rejected']])->count();
         // TODO: Average Stars
 
-        return view('home', compact('artObjects', 'approvedCount', 'rejectedCount'));
+        return view('home', compact('artObjects', 'approvedCount', 'rejectedCount', 'pendingCount', 'notificationObjects'));
     }
 
 

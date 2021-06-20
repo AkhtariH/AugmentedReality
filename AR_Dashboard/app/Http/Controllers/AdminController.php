@@ -26,6 +26,13 @@ class AdminController extends Controller
         $approvedCount = ArtObject::where([['status', '=', 'Approved']])->count();
         $pendingCount = ArtObject::where([['status', '=', 'Pending']])->count();
         $rejectedCount = ArtObject::where([['status', '=', 'Rejected']])->count();
+
+        $notificationObjects = ArtObject::where([['status', '=', 'Pending']])->get();
+        foreach ($notificationObjects as $object){
+            $user = User::find($object->user_id);
+            $object->artist = $user->name;
+            $object->profile_image = $user->profile_image;
+        }
         // TODO: Average Stars
 
         foreach ($artObjects as $artObject) {
@@ -33,7 +40,7 @@ class AdminController extends Controller
             $artObject->username = $user->name;
         }
 
-        return view('admin.index', compact('artObjects', 'approvedCount', 'rejectedCount', 'pendingCount', 'artObjectsPaginate'));
+        return view('admin.index', compact('artObjects', 'approvedCount', 'rejectedCount', 'pendingCount', 'artObjectsPaginate', 'notificationObjects'));
     }
 
     /**
