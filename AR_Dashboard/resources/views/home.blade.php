@@ -209,6 +209,9 @@
                         </tbody>
                     </table>
                 </div>
+                <div class="row" style="justify-content: center !important;margin-top:10px;">
+                    {!! $artObjects->links() !!}
+                </div>
             </div>
         </div>
     </div>

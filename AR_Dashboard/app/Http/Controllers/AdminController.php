@@ -22,6 +22,7 @@ class AdminController extends Controller
 
     public function index() {
         $artObjects = ArtObject::all();
+        $artObjectsPaginate = ArtObject::paginate(9);
         $approvedCount = ArtObject::where([['status', '=', 'Approved']])->count();
         $pendingCount = ArtObject::where([['status', '=', 'Pending']])->count();
         $rejectedCount = ArtObject::where([['status', '=', 'Rejected']])->count();
@@ -32,7 +33,70 @@ class AdminController extends Controller
             $artObject->username = $user->name;
         }
 
-        return view('admin.index', compact('artObjects', 'approvedCount', 'rejectedCount', 'pendingCount'));
+        return view('admin.index', compact('artObjects', 'approvedCount', 'rejectedCount', 'pendingCount', 'artObjectsPaginate'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\ArtObject  $artObject
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $artObject = ArtObject::findOrFail($id);
+        $user = User::findOrFail($artObject->user_id);
+        return view('admin.edit', compact('artObject', 'user'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\ArtObject  $artObject
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'file' => 'max:1024000',
+            'name' => 'required',
+            'latitude' => 'required',
+            'longitude' => 'required',
+            'floatingHeight' => 'required',
+	        'description' => 'required'
+        ]);
+        
+        $artObject = ArtObject::findOrFail($id);
+        $data = collect($request->except('file'));
+        if ($request->has('file')) {
+            $extension = substr($request->file->getClientOriginalName(), -3);
+            $imageName = time() . '.' . $extension;  
+            $content = file_get_contents($request->file);
+            
+            $request->file->move(public_path('img/uploads/'), $imageName);
+            $data->put('file', $imageName);
+            $artObject->update([
+                'name' => $request->name,
+                'description' => $request->description,
+                'file_path' => $imageName,
+                'longitude' => $request->longitude,
+                'latitude' => $request->latitude,
+                'floatingHeight' => $request->floatingHeight,
+                'status' => 'Pending'
+            ]);
+        } else {
+            $artObject->update([
+                'name' => $request->name,
+                'description' => $request->description,
+                'longitude' => $request->longitude,
+                'latitude' => $request->latitude,
+                'floatingHeight' => $request->floatingHeight,
+                'status' => 'Pending'
+            ]);
+        }
+
+        return redirect()->route('admin.index')->with('success', 'The art object has been updated!');
     }
 
     public function approve($id) {

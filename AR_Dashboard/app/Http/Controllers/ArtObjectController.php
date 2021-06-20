@@ -15,7 +15,7 @@ class ArtObjectController extends Controller
      */
     public function index()
     {
-        $artObjects = ArtObject::where('user_id', Auth()->user()->id)->get();
+        $artObjects = ArtObject::where('user_id', Auth()->user()->id)->latest()->paginate(9);
         $approvedCount = ArtObject::where([['user_id', '=', Auth()->user()->id], ['status', '=', 'Approved']])->count();
         $rejectedCount = ArtObject::where([['user_id', '=', Auth()->user()->id], ['status', '=', 'Rejected']])->count();
         // TODO: Average Stars
@@ -120,7 +120,8 @@ class ArtObjectController extends Controller
                 'file_path' => $imageName,
                 'longitude' => $request->longitude,
                 'latitude' => $request->latitude,
-                'floatingHeight' => $request->floatingHeight
+                'floatingHeight' => $request->floatingHeight,
+                'status' => 'Pending'
             ]);
         } else {
             $artObject->update([
@@ -128,7 +129,8 @@ class ArtObjectController extends Controller
                 'description' => $request->description,
                 'longitude' => $request->longitude,
                 'latitude' => $request->latitude,
-                'floatingHeight' => $request->floatingHeight
+                'floatingHeight' => $request->floatingHeight,
+                'status' => 'Pending'
             ]);
         }
 
