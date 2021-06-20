@@ -172,7 +172,7 @@
 									<div class="header-info">
 										<span>Hello, <strong>{{ Auth()->user()->name }}</strong></span>
 									</div>
-                                    <img src="images/profile/pic1.jpg" width="20" alt=""/>
+                                    <img src="{{ asset('img/uploads/' . Auth()->user()->profile_image) }}" style="object-fit: cover;" width="20" alt=""/>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right">
                                     <a href="{{ route('profile.index') }}" class="dropdown-item ai-icon">

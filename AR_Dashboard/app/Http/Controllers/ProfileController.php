@@ -24,26 +24,14 @@ class ProfileController extends Controller
     public function index()
     {
         $user = Auth()->user();
-        $artObjects = ArtObject::where('user_id', $user->id)->get();
+        $artObjects = ArtObject::where('user_id', $user->id)->paginate(15);
+        $approvedCount = ArtObject::where([['user_id', '=', $user->id], ['status', '=', 'Approved']])->count();
+        $pendingCount = ArtObject::where([['user_id', '=', $user->id], ['status', '=', 'Pending']])->count();
+        $rejectedCount = ArtObject::where([['user_id', '=', $user->id], ['status', '=', 'Rejected']])->count();
 
-        return view('profile.index', compact('user', 'artObjects'));
+        return view('profile.index', compact('user', 'artObjects', 'approvedCount', 'pendingCount', 'rejectedCount'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        if (Auth()->user()->id == $id) {
-            $user = Auth()->user();
-        } else {
-            abort(403, 'Access denied');
-        }
-        
-        return view('profile.edit', compact('user'));
-    }
 
     /**
      * Update the specified resource in storage.
@@ -52,11 +40,15 @@ class ProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ProfileUpdateRequest $request)
+    public function update(Request $request)
     {
-        $request->validated();
-
         $user = Auth::user();
+        $request->validate([
+            'email' => 'required|email|unique:users,email,' . $user->id,
+            'name' => 'required'
+        ]);
+
+        
         $data = collect($request->except(['profile_image']));
 
         if ($request->has('profile_image')) {

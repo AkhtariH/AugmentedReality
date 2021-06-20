@@ -9,22 +9,24 @@
             <div class="profile card card-body px-3 pt-3 pb-0">
                 <div class="profile-head">
                     <div class="photo-content">
-                        <div class="cover-photo"></div>
+                        <div class="cover-photo">
+                            <img src="{{ asset('img/banner.jpg') }}" alt="" style="width: 100%; height: 300px;object-fit: cover;"/>
+                        </div>
                     </div>
                     <div class="profile-info">
                         <div class="profile-photo">
-                            <img src="images/profile/profile.png" class="img-fluid rounded-circle" alt="">
+                            <img src="{{ asset('img/uploads/' . $user->profile_image) }}" style="object-fit: cover;width: 100px;height: 100px;border-radius: 100px;box-shadow: 0 0 0 4px #fff;" class="img-fluid rounded-circle" alt="">
                         </div>
                         <div class="profile-details">
                             <div class="profile-name px-3 pt-2">
-                                <h4 class="text-primary mb-0">Mitchell C. Shay</h4>
-                                <p>UX / UI Designer</p>
+                                <h4 class="text-primary mb-0">{{ $user->name }}</h4>
+                                <p>{{ ucfirst($user->type) }}</p>
                             </div>
                             <div class="profile-email px-2 pt-2">
-                                <h4 class="text-muted mb-0">hello@email.com</h4>
+                                <h4 class="text-muted mb-0">{{ $user->email }}</h4>
                                 <p>Email</p>
                             </div>
-                            <div class="dropdown ml-auto">
+                            {{-- <div class="dropdown ml-auto">
                                 <a href="#" class="btn btn-primary light sharp" data-toggle="dropdown" aria-expanded="false"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"></rect><circle fill="#000000" cx="5" cy="12" r="2"></circle><circle fill="#000000" cx="12" cy="12" r="2"></circle><circle fill="#000000" cx="19" cy="12" r="2"></circle></g></svg></a>
                                 <ul class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(40px, 40px, 0px);">
                                     <li class="dropdown-item"><i class="fa fa-user-circle text-primary mr-2"></i> View profile</li>
@@ -32,7 +34,7 @@
                                     <li class="dropdown-item"><i class="fa fa-plus text-primary mr-2"></i> Add to group</li>
                                     <li class="dropdown-item"><i class="fa fa-ban text-primary mr-2"></i> Block</li>
                                 </ul>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
@@ -48,89 +50,17 @@
                         <div class="text-center">
                             <div class="row">
                                 <div class="col">
-                                    <h3 class="m-b-0">150</h3><span>Follower</span>
+                                    <h3 class="m-b-0">{{ $approvedCount }}</h3><span>Approved</span>
                                 </div>
                                 <div class="col">
-                                    <h3 class="m-b-0">140</h3><span>Place Stay</span>
+                                    <h3 class="m-b-0">{{ $pendingCount }}</h3><span>Pending</span>
                                 </div>
                                 <div class="col">
-                                    <h3 class="m-b-0">45</h3><span>Reviews</span>
+                                    <h3 class="m-b-0">{{ $rejectedCount }}</h3><span>Rejected</span>
                                 </div>
                             </div>
                             <div class="mt-4">
-                                <a href="javascript:void()" class="btn btn-primary mb-1 mr-1">Follow</a> 
-                                <a href="javascript:void()" class="btn btn-primary mb-1">Send Message</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="profile-blog mb-5">
-                        <h5 class="text-primary d-inline">Today Highlights</h5><a href="javascript:void()" class="pull-right f-s-16">More</a>
-                        <img src="images/profile/1.jpg" alt="" class="img-fluid mt-4 mb-4 w-100">
-                        <h4>Darwin Creative Agency Theme</h4>
-                        <p class="mb-0">A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
-                    </div>
-                    <div class="profile-interest mb-5">
-                        <h5 class="text-primary d-inline">Interest</h5>
-                        <div class="row mt-4">
-                            <div class="col-lg-4 col-xl-4 col-sm-4 col-6 int-col">
-                                <a href="javascript:void()" class="interest-cat">
-                                    <img src="images/profile/2.jpg" alt="" class="img-fluid">
-                                    <p>Shopping Mall</p>
-                                </a>
-                            </div>
-                            <div class="col-lg-4 col-xl-4 col-sm-4 col-6 int-col">
-                                <a href="javascript:void()" class="interest-cat">
-                                    <img src="images/profile/3.jpg" alt="" class="img-fluid">
-                                    <p>Photography</p>
-                                </a>
-                            </div>
-                            <div class="col-lg-4 col-xl-4 col-sm-4 col-6 int-col">
-                                <a href="javascript:void()" class="interest-cat">
-                                    <img src="images/profile/4.jpg" alt="" class="img-fluid">
-                                    <p>Art &amp; Gallery</p>
-                                </a>
-                            </div>
-                            <div class="col-lg-4 col-xl-4 col-sm-4 col-6 int-col">
-                                <a href="javascript:void()" class="interest-cat">
-                                    <img src="images/profile/2.jpg" alt="" class="img-fluid">
-                                    <p>Visiting Place</p>
-                                </a>
-                            </div>
-                            <div class="col-lg-4 col-xl-4 col-sm-4 col-6 int-col">
-                                <a href="javascript:void()" class="interest-cat">
-                                    <img src="images/profile/3.jpg" alt="" class="img-fluid">
-                                    <p>Shopping</p>
-                                </a>
-                            </div>
-                            <div class="col-lg-4 col-xl-4 col-sm-4 col-6 int-col">
-                                <a href="javascript:void()" class="interest-cat">
-                                    <img src="images/profile/4.jpg" alt="" class="img-fluid">
-                                    <p>Biking</p>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="profile-news">
-                        <h5 class="text-primary d-inline">Our Latest News</h5>
-                        <div class="media pt-3 pb-3">
-                            <img src="images/profile/5.jpg" alt="image" class="mr-3 rounded" width="75">
-                            <div class="media-body">
-                                <h5 class="m-b-5">Collection of textile samples</h5>
-                                <p class="mb-0">I shared this on my fb wall a few months back, and I thought.</p>
-                            </div>
-                        </div>
-                        <div class="media pt-3 pb-3">
-                            <img src="images/profile/6.jpg" alt="image" class="mr-3 rounded" width="75">
-                            <div class="media-body">
-                                <h5 class="m-b-5">Collection of textile samples</h5>
-                                <p class="mb-0">I shared this on my fb wall a few months back, and I thought.</p>
-                            </div>
-                        </div>
-                        <div class="media pt-3 pb-3">
-                            <img src="images/profile/7.jpg" alt="image" class="mr-3 rounded" width="75">
-                            <div class="media-body">
-                                <h5 class="m-b-5">Collection of textile samples</h5>
-                                <p class="mb-0">I shared this on my fb wall a few months back, and I thought.</p>
+                                <a href="{{ route('home.index') }}" class="btn btn-primary mb-1 mr-1">Upload Art</a> 
                             </div>
                         </div>
                     </div>
@@ -143,125 +73,63 @@
                     <div class="profile-tab">
                         <div class="custom-tab-1">
                             <ul class="nav nav-tabs">
-                                <li class="nav-item"><a href="#my-posts" data-toggle="tab" class="nav-link show active">Posts</a>
-                                </li>
-                                <li class="nav-item"><a href="#about-me" data-toggle="tab" class="nav-link">About Me</a>
+                                <li class="nav-item"><a href="#my-art" data-toggle="tab" class="nav-link show active">Art Objects</a>
                                 </li>
                                 <li class="nav-item"><a href="#profile-settings" data-toggle="tab" class="nav-link">Setting</a>
                                 </li>
                             </ul>
                             <div class="tab-content">
-                                <div id="my-posts" class="tab-pane fade active show">
+                                <div id="my-art" class="tab-pane fade active show">
                                     <div class="my-post-content pt-3">
-                                        <div class="post-input">
-                                            <textarea name="textarea" id="textarea" cols="30" rows="5" class="form-control bg-transparent" placeholder="Please type what you want...."></textarea> 
-                                            <a href="javascript:void()" class="btn btn-primary light px-3"><i class="fa fa-link"></i> </a>
-                                            <a href="javascript:void()" class="btn btn-primary light mr-1 px-3"><i class="fa fa-camera"></i> </a><a href="javascript:void()" class="btn btn-primary">Post</a>
+                                        <div class="table-responsive">
+                                            <table class="table table-responsive-md">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="width:80px;"><strong>#</strong></th>
+                                                        <th><strong>NAME</strong></th>
+                                                        <th><strong>DESCRIPTION</strong></th>
+                                                        <th><strong>DATE</strong></th>
+                                                        <th><strong>REVIEW</strong></th>
+                                                        <th><strong>STATUS</strong></th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($artObjects as $key=>$object)
+                                                        <tr>
+                                                            <td><strong>{{ ++$key }}</strong></td>
+                                                            <td>{{ $object->name }}</td>
+                                                            <td>{{ $object->description }}</td>
+                                                            <td>{{ $object->created_at->format('d.m.Y') }}</td>
+                                                            <td><i class="lni lni-star-filled"></i><i class="lni lni-star-filled"></i><i class="lni lni-star-filled"></i><i class="lni lni-star-filled"></i><i class="lni lni-star"></i></td>
+                                                            <td><span class="badge light {{  $object->status == 'Approved' ? 'badge-success' : ($object->status == 'Rejected' ? 'badge-danger' : 'badge-warning') }}">{{ $object->status }}</span></td>
+                                                            <td>
+                                                                <div class="dropdown">
+                                                                    <button type="button" class="btn btn-success light sharp" data-toggle="dropdown">
+                                                                        <svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"></rect><circle fill="#000000" cx="5" cy="12" r="2"></circle><circle fill="#000000" cx="12" cy="12" r="2"></circle><circle fill="#000000" cx="19" cy="12" r="2"></circle></g></svg>
+                                                                    </button>
+                                                                    <div class="dropdown-menu">
+                                                                        <a href="{{ route('home.edit', $object->id) }}" class="dropdown-item">
+                                                                            Edit
+                                                                        </a>
+                                                                        <form action="{{ route('home.destroy', $object->id) }}" method="post" class="removeForm">
+                                                                            @csrf
+                                                                            @method('DELETE')
+                                                                            <button type="submit" class="dropdown-item" onclick="return confirm('Are you sure?')">
+                                                                                Delete
+                                                                            </button>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
                                         </div>
-                                        <div class="profile-uoloaded-post border-bottom-1 pb-5">
-                                            <img src="images/profile/8.jpg" alt="" class="img-fluid">
-                                            <a class="post-title" href="javascript:void()">
-                                                <h4>Collection of textile samples lay spread</h4>
-                                            </a>
-                                            <p>A wonderful serenity has take possession of my entire soul like these sweet morning of spare which enjoy whole heart.A wonderful serenity has take possession of my entire soul like these sweet morning
-                                                of spare which enjoy whole heart.</p>
-                                            <button class="btn btn-primary mr-2"><span class="mr-2"><i class="fa fa-heart"></i></span>Like</button>
-                                            <button class="btn btn-secondary"><span class="mr-2"><i class="fa fa-reply"></i></span>Reply</button>
-                                        </div>
-                                        <div class="profile-uoloaded-post border-bottom-1 pb-5">
-                                            <img src="images/profile/9.jpg" alt="" class="img-fluid">
-                                            <a class="post-title" href="javascript:void()">
-                                                <h4>Collection of textile samples lay spread</h4>
-                                            </a>
-                                            <p>A wonderful serenity has take possession of my entire soul like these sweet morning of spare which enjoy whole heart.A wonderful serenity has take possession of my entire soul like these sweet morning
-                                                of spare which enjoy whole heart.</p>
-                                            <button class="btn btn-primary mr-2"><span class="mr-2"><i class="fa fa-heart"></i></span>Like</button>
-                                            <button class="btn btn-secondary"><span class="mr-2"><i class="fa fa-reply"></i></span>Reply</button>
-                                        </div>
-                                        <div class="profile-uoloaded-post pb-5">
-                                            <img src="images/profile/8.jpg" alt="" class="img-fluid">
-                                            <a class="post-title" href="javascript:void()">
-                                                <h4>Collection of textile samples lay spread</h4>
-                                            </a>
-                                            <p>A wonderful serenity has take possession of my entire soul like these sweet morning of spare which enjoy whole heart.A wonderful serenity has take possession of my entire soul like these sweet morning
-                                                of spare which enjoy whole heart.</p>
-                                            <button class="btn btn-primary mr-2"><span class="mr-2"><i class="fa fa-heart"></i></span>Like</button>
-                                            <button class="btn btn-secondary"><span class="mr-2"><i class="fa fa-reply"></i></span>Reply</button>
-                                        </div>
-                                        <div class="text-center mb-2"><a href="javascript:void()" class="btn btn-primary">Load More</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="about-me" class="tab-pane fade">
-                                    <div class="profile-about-me">
-                                        <div class="pt-4 border-bottom-1 pb-3">
-                                            <h4 class="text-primary">About Me</h4>
-                                            <p class="mb-2">A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart. I am alone, and feel the charm of existence was created for the bliss of souls like mine.I am so happy, my dear friend, so absorbed in the exquisite sense of mere tranquil existence, that I neglect my talents.</p>
-                                            <p>A collection of textile samples lay spread out on the table - Samsa was a travelling salesman - and above it there hung a picture that he had recently cut out of an illustrated magazine and housed in a nice, gilded frame.</p>
-                                        </div>
-                                    </div>
-                                    <div class="profile-skills mb-5">
-                                        <h4 class="text-primary mb-2">Skills</h4>
-                                        <a href="javascript:void()" class="btn btn-primary light btn-xs mb-1">Admin</a>
-                                        <a href="javascript:void()" class="btn btn-primary light btn-xs mb-1">Dashboard</a>
-                                        <a href="javascript:void()" class="btn btn-primary light btn-xs mb-1">Photoshop</a>
-                                        <a href="javascript:void()" class="btn btn-primary light btn-xs mb-1">Bootstrap</a>
-                                        <a href="javascript:void()" class="btn btn-primary light btn-xs mb-1">Responsive</a>
-                                        <a href="javascript:void()" class="btn btn-primary light btn-xs mb-1">Crypto</a>
-                                    </div>
-                                    <div class="profile-lang  mb-5">
-                                        <h4 class="text-primary mb-2">Language</h4>
-                                        <a href="javascript:void()" class="text-muted pr-3 f-s-16"><i class="flag-icon flag-icon-us"></i> English</a> 
-                                        <a href="javascript:void()" class="text-muted pr-3 f-s-16"><i class="flag-icon flag-icon-fr"></i> French</a>
-                                        <a href="javascript:void()" class="text-muted pr-3 f-s-16"><i class="flag-icon flag-icon-bd"></i> Bangla</a>
-                                    </div>
-                                    <div class="profile-personal-info">
-                                        <h4 class="text-primary mb-4">Personal Information</h4>
-                                        <div class="row mb-2">
-                                            <div class="col-3">
-                                                <h5 class="f-w-500">Name <span class="pull-right">:</span>
-                                                </h5>
-                                            </div>
-                                            <div class="col-9"><span>Mitchell C.Shay</span>
-                                            </div>
-                                        </div>
-                                        <div class="row mb-2">
-                                            <div class="col-3">
-                                                <h5 class="f-w-500">Email <span class="pull-right">:</span>
-                                                </h5>
-                                            </div>
-                                            <div class="col-9"><span>example@examplel.com</span>
-                                            </div>
-                                        </div>
-                                        <div class="row mb-2">
-                                            <div class="col-3">
-                                                <h5 class="f-w-500">Availability <span class="pull-right">:</span></h5>
-                                            </div>
-                                            <div class="col-9"><span>Full Time (Free Lancer)</span>
-                                            </div>
-                                        </div>
-                                        <div class="row mb-2">
-                                            <div class="col-3">
-                                                <h5 class="f-w-500">Age <span class="pull-right">:</span>
-                                                </h5>
-                                            </div>
-                                            <div class="col-9"><span>27</span>
-                                            </div>
-                                        </div>
-                                        <div class="row mb-2">
-                                            <div class="col-3">
-                                                <h5 class="f-w-500">Location <span class="pull-right">:</span></h5>
-                                            </div>
-                                            <div class="col-9"><span>Rosemont Avenue Melbourne,
-                                                    Florida</span>
-                                            </div>
-                                        </div>
-                                        <div class="row mb-2">
-                                            <div class="col-3">
-                                                <h5 class="f-w-500">Year Experience <span class="pull-right">:</span></h5>
-                                            </div>
-                                            <div class="col-9"><span>07 Year Experiences</span>
-                                            </div>
+                                        <div class="row" style="justify-content: center !important;margin-top:10px;">
+                                            {!! $artObjects->links() !!}
                                         </div>
                                     </div>
                                 </div>
@@ -269,52 +137,27 @@
                                     <div class="pt-3">
                                         <div class="settings-form">
                                             <h4 class="text-primary">Account Setting</h4>
-                                            <form>
+                                            <form action="{{ route('profile.update', $user->id) }}" method="POST" enctype="multipart/form-data">
+                                                @csrf
+                                                @method('PUT')
                                                 <div class="form-row">
                                                     <div class="form-group col-md-6">
-                                                        <label>Email</label>
-                                                        <input type="email" placeholder="Email" class="form-control">
+                                                        <label>Name</label>
+                                                        <input type="text" name="name" placeholder="Name" value="{{ $user->name }}" class="form-control">
                                                     </div>
                                                     <div class="form-group col-md-6">
-                                                        <label>Password</label>
-                                                        <input type="password" placeholder="Password" class="form-control">
+                                                        <label>E-Mail Adress</label>
+                                                        <input type="email" name="email" value="{{ $user->email }}" placeholder="E-Mail Adress" class="form-control">
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label>Address</label>
-                                                    <input type="text" placeholder="1234 Main St" class="form-control">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>Address 2</label>
-                                                    <input type="text" placeholder="Apartment, studio, or floor" class="form-control">
-                                                </div>
-                                                <div class="form-row">
-                                                    <div class="form-group col-md-6">
-                                                        <label>City</label>
-                                                        <input type="text" class="form-control">
-                                                    </div>
-                                                    <div class="form-group col-md-4">
-                                                        <label>State</label>
-                                                        <div class="dropdown bootstrap-select form-control"><select class="form-control" id="inputState" tabindex="-98">
-                                                            <option selected="">Choose...</option>
-                                                            <option>Option 1</option>
-                                                            <option>Option 2</option>
-                                                            <option>Option 3</option>
-                                                        </select><button type="button" class="btn dropdown-toggle btn-light" data-toggle="dropdown" role="button" data-id="inputState" title="Choose..."><div class="filter-option"><div class="filter-option-inner"><div class="filter-option-inner-inner">Choose...</div></div> </div></button><div class="dropdown-menu " role="combobox"><div class="inner show" role="listbox" aria-expanded="false" tabindex="-1"><ul class="dropdown-menu inner show"></ul></div></div></div>
-                                                    </div>
-                                                    <div class="form-group col-md-2">
-                                                        <label>Zip</label>
-                                                        <input type="text" class="form-control">
+                                                    <label>Profile Picture</label>
+                                                    <div class="custom-file">
+                                                        <input type="file" id="file" name="profile_image" class="custom-file-input">
+                                                        <label class="custom-file-label">Choose file</label>
                                                     </div>
                                                 </div>
-                                                <div class="form-group">
-                                                    <div class="custom-control custom-checkbox">
-                                                        <input type="checkbox" class="custom-control-input" id="gridCheck">
-                                                        <label class="custom-control-label" for="gridCheck"> Check me out</label>
-                                                    </div>
-                                                </div>
-                                                <button class="btn btn-primary" type="submit">Sign
-                                                    in</button>
+                                                <button class="btn btn-primary" type="submit">Update</button>
                                             </form>
                                         </div>
                                     </div>
@@ -326,4 +169,64 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+<script>
+    var errorMsg = '{{ $errors->first() }}';
+    if (errorMsg != '' && errorMsg != null) {
+        toastr.error(errorMsg, "Error", {
+            timeOut: 20000,
+            closeButton: !0,
+            debug: !1,
+            newestOnTop: !0,
+            progressBar: !0,
+            positionClass: "toast-top-right",
+            preventDuplicates: !0,
+            onclick: null,
+            showDuration: "300",
+            hideDuration: "1000",
+            extendedTimeOut: "1000",
+            showEasing: "swing",
+            hideEasing: "linear",
+            showMethod: "fadeIn",
+            hideMethod: "fadeOut",
+            tapToDismiss: !1
+        }).css({
+            "width": "500px",
+            "max-width": "500px",
+            "font-size": "20px"
+        });
+    }
+
+    var successMsg = '{{ session("success") }}';
+    if (successMsg != '' && successMsg != null) {
+        toastr.success(successMsg, "Success", {
+            timeOut: 10000,
+            closeButton: !0,
+            debug: !1,
+            newestOnTop: !0,
+            progressBar: !0,
+            positionClass: "toast-top-right",
+            preventDuplicates: !0,
+            onclick: null,
+            showDuration: "300",
+            hideDuration: "1000",
+            extendedTimeOut: "1000",
+            showEasing: "swing",
+            hideEasing: "linear",
+            showMethod: "fadeIn",
+            hideMethod: "fadeOut",
+            tapToDismiss: !1
+        }).css({
+            "width": "500px",
+            "max-width": "500px",
+            "font-size": "20px"
+        });
+    }
+
+    document.getElementById('file').onchange = function () {
+        $('.custom-file-label').html(this.value);
+    };
+</script>
 @endsection
