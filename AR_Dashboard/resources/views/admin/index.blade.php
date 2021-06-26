@@ -127,6 +127,7 @@
                                             <td>{{ $object->created_at->format('d.m.Y') }}</td>
                                             <td>
                                                 <div class="d-flex">
+                                                    <a href="{{ route('admin.simulator', $object->id) }}" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-eye"></i></a>
                                                     <a href="{{ route('admin.approve', $object->id) }}" class="btn btn-success shadow btn-xs sharp mr-1"><i class="fa fa-check"></i></a>
                                                     <a href="{{ route('admin.reject', $object->id) }}" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-times"></i></a>
                                                 </div>

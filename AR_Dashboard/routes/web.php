@@ -66,6 +66,7 @@ Route::middleware(['auth', 'is_admin'])->group( function () {
         ->names('admin');
     Route::get('/admin/{id}/approve', [AdminController::class, 'approve'])->name('admin.approve');
     Route::get('/admin/{id}/reject', [AdminController::class, 'reject'])->name('admin.reject');
+    Route::get('/admin/{id}/simulator', [AdminController::class, 'simulator'])->name('admin.simulator');
 });
 
 Auth::routes();

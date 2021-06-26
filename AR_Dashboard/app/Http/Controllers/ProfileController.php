@@ -29,7 +29,9 @@ class ProfileController extends Controller
         $pendingCount = ArtObject::where([['user_id', '=', $user->id], ['status', '=', 'Pending']])->count();
         $rejectedCount = ArtObject::where([['user_id', '=', $user->id], ['status', '=', 'Rejected']])->count();
 
-        return view('profile.index', compact('user', 'artObjects', 'approvedCount', 'pendingCount', 'rejectedCount'));
+        $notificationObjects = null;
+
+        return view('profile.index', compact('user', 'artObjects', 'approvedCount', 'pendingCount', 'rejectedCount', 'notificationObjects'));
     }
 
 

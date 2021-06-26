@@ -101,19 +101,21 @@
                                     <div class="dropdown-menu dropdown-menu-right">
                                         <div id="DZ_W_Notification1" class="widget-media dz-scroll p-3" style="height:380px;">
                                             <ul class="timeline">
-                                                @foreach ($notificationObjects as $object)
-                                                    <li>
-                                                        <div class="timeline-panel">
-                                                            <div class="media mr-2">
-                                                                <img alt="image" width="50" src="{{ asset('img/uploads/' . $object->profile_image) }}">
+                                                @if ($notificationObjects != null)
+                                                    @foreach ($notificationObjects as $object)
+                                                        <li>
+                                                            <div class="timeline-panel">
+                                                                <div class="media mr-2">
+                                                                    <img alt="image" width="50" src="{{ asset('img/uploads/' . $object->profile_image) }}">
+                                                                </div>
+                                                                <div class="media-body">
+                                                                    <h6 class="mb-1">{{ explode(' ', $object->artist)[0] }} uploaded an object.</h6>
+                                                                    <small class="d-block">{{ $object->created_at }}</small>
+                                                                </div>
                                                             </div>
-                                                            <div class="media-body">
-                                                                <h6 class="mb-1">{{ explode(' ', $object->artist)[0] }} uploaded an object.</h6>
-                                                                <small class="d-block">{{ $object->created_at }}</small>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                @endforeach
+                                                        </li>
+                                                    @endforeach
+                                                @endif
                                             </ul>
                                         </div>
                                         {{-- <a class="all-notification" href="#">See all notifications <i class="ti-arrow-right"></i></a> --}}

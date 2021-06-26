@@ -22,6 +22,7 @@ use App\Http\Controllers\API\ProfileController;
 //     return $request->user();
 // });
 Route::get('artobjects', [ArtObjectController::class, 'index']);
+Route::get('simulator/{id}', [ArtObjectController::class, 'simulator']);
 Route::post('login', [LoginController::class, 'index']);
 
 Route::middleware('auth:api')->group( function () {

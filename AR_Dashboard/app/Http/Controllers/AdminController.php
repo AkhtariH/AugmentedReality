@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Session;
 use App\Models\User;
 use App\Models\ArtObject;
+use App\Models\SimulatorSession;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -122,6 +123,15 @@ class AdminController extends Controller
         ]);
 
         return redirect()->route('admin.index')->with('success', 'The art object has been rejected!');
+    }
+
+    public function simulator($id) {
+        SimulatorSession::create([
+            'user_id' => Auth()->user()->id,
+            'art_object_id' => $id
+        ]);
+
+        return redirect()->route('admin.index')->with('success', 'The Simulator Session has been created succesfully!');
     }
 
 }
