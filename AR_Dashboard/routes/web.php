@@ -15,6 +15,7 @@ use App\Http\Controllers\DateFilterController;
 use App\Http\Controllers\HpdController;
 use App\Http\Controllers\HolidayController;
 use App\Http\Controllers\PagesController;
+use App\Http\Controllers\SimulatorController;
 use App\Http\Controllers\Auth\LoginController;
 
 /*
@@ -57,6 +58,8 @@ Route::middleware('auth')->group( function () {
         ->names('profile');
 
     Route::get('/logout', [LoginController::class, 'logout']);
+
+    Route::get('/simulator', [SimulatorController::class, 'index']);
     
 });
 

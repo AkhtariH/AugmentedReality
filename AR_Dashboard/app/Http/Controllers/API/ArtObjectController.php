@@ -23,9 +23,9 @@ class ArtObjectController extends BaseController
         return $this->sendResponse(ArtObjectResource::collection($artObjects), 'ArtObject retrieved successfully.');
     }
 
-    public function simulator()
+    public function simulator($id)
     {
-        $session = SimulatorSession::where('user_id', Auth()->user()->id);
+        $session = SimulatorSession::findOrFail($id);
         $artObject = ArtObject::findOrFail($session->art_object_id);
 
         return $this->sendResponse(new ArtObjectResource($artObject), 'ArtObject retrieved successfully.');
