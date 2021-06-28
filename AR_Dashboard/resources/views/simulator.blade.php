@@ -76,6 +76,7 @@
           createUnityInstance(canvas, config, (progress) => {
             progressBarFull.style.width = 100 * progress + "%";
           }).then((unityInstance) => {
+            unityInstance.SendMessage('User_ModelLoader', 'Execute', 5);
             loadingBar.style.display = "none";
             fullscreenButton.onclick = () => {
               unityInstance.SetFullscreen(1);
