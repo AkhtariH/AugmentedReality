@@ -2,6 +2,10 @@
 
 @section('title', 'Simulator')
 
+@section('header')
+<link href="{{ asset('/TemplateData/style.css') }}" rel="stylesheet">
+@endsection
+
 @section('content')
 @if($errors->any()) 
 

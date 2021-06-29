@@ -20,7 +20,6 @@
     <link href="{{ asset('/vendor/bootstrap-select/dist/css/bootstrap-select.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('/vendor/toastr/css/toastr.min.css') }}">
     <link href="{{ asset('/css/style.css') }}" rel="stylesheet">
-    <link href="{{ asset('/TemplateData/style.css') }}" rel="stylesheet">
 	<link href="https://cdn.lineicons.com/2.0/LineIcons.css" rel="stylesheet">
 
     @yield('header')
