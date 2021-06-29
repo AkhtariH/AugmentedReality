@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\LoginController;
 use App\Http\Controllers\API\ArtObjectController;
 use App\Http\Controllers\API\ProfileController;
+use App\Http\Controllers\API\ReviewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +24,8 @@ use App\Http\Controllers\API\ProfileController;
 // });
 Route::get('artobjects', [ArtObjectController::class, 'index']);
 Route::get('simulator/{id}', [ArtObjectController::class, 'simulator']);
+Route::get('reviews/{id}', [ReviewController::class, 'getReview']);
+Route::post('reviews', [ReviewController::class, 'postReview']);
 Route::post('login', [LoginController::class, 'index']);
 
 Route::middleware('auth:api')->group( function () {
