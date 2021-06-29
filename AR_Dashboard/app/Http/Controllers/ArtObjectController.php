@@ -31,6 +31,7 @@ class ArtObjectController extends Controller
             }
         } else {
             $pendingCount = null;
+            $notificationObjects = null;
         }
         $rejectedCount = ArtObject::where([['user_id', '=', Auth()->user()->id], ['status', '=', 'Rejected']])->count();
         // TODO: Average Stars
