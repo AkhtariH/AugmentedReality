@@ -59,7 +59,9 @@ class AdminController extends Controller
     {
         $artObject = ArtObject::findOrFail($id);
         $user = User::findOrFail($artObject->user_id);
-        return view('admin.edit', compact('artObject', 'user'));
+        $pendingCount = null;
+        $notificationObjects = null;
+        return view('admin.edit', compact('artObject', 'user', 'pendingCount', 'notificationObjects'));
     }
 
     /**
