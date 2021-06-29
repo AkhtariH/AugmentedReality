@@ -14,8 +14,13 @@ class ReviewController extends BaseController
     public function getReview($id)
     {
         $review = Review::where('art_object_id', $id)->get();
+        if ($review != null && !$review->isEmpty()) {
+            $status = true;
+        } else {
+            $status = false;
+        }
 
-        return $this->sendResponse(ReviewResource::collection($review), 'Review retrieved successfully.');
+        return $this->sendResponse(ReviewResource::collection($review), 'Review retrieved successfully.', $status);
     }
 
     public function postReview(Request $request)

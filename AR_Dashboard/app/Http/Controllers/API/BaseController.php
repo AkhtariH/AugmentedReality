@@ -12,10 +12,10 @@ class BaseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function sendResponse($result, $message)
+    public function sendResponse($result, $message, $success = true)
     {
     	$response = [
-            'success' => true,
+            'success' => $success,
             'data'    => $result,
             'message' => $message,
         ];
