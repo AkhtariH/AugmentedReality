@@ -52,14 +52,15 @@ Route::middleware('guest')->group( function () {
 Route::middleware('auth')->group( function () {
     // Dashboard
     Route::resource('/home', App\Http\Controllers\ArtObjectController::class)->names('home');
-
+    Route::get('/home/{id}/simulator', [App\Http\Controllers\ArtObjectController::class, 'simulator'])->name('home.simulator');
     // Profile
     Route::resource('/profile', ProfileController::class)
         ->names('profile');
 
     Route::get('/logout', [LoginController::class, 'logout']);
 
-    Route::get('/simulator', [SimulatorController::class, 'index']);
+    Route::get('/simulator', [SimulatorController::class, 'show'])->name('simulator');
+    Route::delete('/simulator/end/{id}', [SimulatorController::class, 'endSession'])->name('simulator.end');
     
 });
 
