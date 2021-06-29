@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\ArtObject;
+use App\Models\SimulatorSession;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Events\ThresholdExceeded;
@@ -169,5 +170,14 @@ class ArtObjectController extends Controller
         ArtObject::findOrFail($id)->delete();
 
         return redirect()->route('home.index')->with('success', 'Your art object has been deleted successfully!');
+    }
+
+    public function simulator($id) {
+        SimulatorSession::create([
+            'user_id' => Auth()->user()->id,
+            'art_object_id' => $id
+        ]);
+
+        return redirect()->route('simulator')->with('success', 'The Simulator Session has been created succesfully!');
     }
 }

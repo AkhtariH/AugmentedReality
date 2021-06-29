@@ -1,7 +1,6 @@
 @extends('layout.app')
 
 @section('title', 'Simulator')
-@section('subtitle', '...')
 
 @section('content')
 @if($errors->any()) 
@@ -24,8 +23,7 @@
         </div>
         <div id="unity-footer">
           <div id="unity-webgl-logo"></div>
-          <div id="unity-fullscreen-button"></div>
-          <div id="unity-build-title">AR Simulator</div>
+          <div id="unity-build-title"><strong>{{ $object->name }}</strong></div>
         </div>
       </div>
       <script>
@@ -45,9 +43,9 @@
         var canvas = document.querySelector("#unity-canvas");
         var loadingBar = document.querySelector("#unity-loading-bar");
         var progressBarFull = document.querySelector("#unity-progress-bar-full");
-        var fullscreenButton = document.querySelector("#unity-fullscreen-button");
         var mobileWarning = document.querySelector("#unity-mobile-warning");
-  
+        var sessionId = parseInt("{{ $session->id }}");
+
         // By default Unity keeps WebGL canvas render target size matched with
         // the DOM size of the canvas element (scaled by window.devicePixelRatio)
         // Set this to false if you want to decouple this synchronization from
@@ -76,11 +74,8 @@
           createUnityInstance(canvas, config, (progress) => {
             progressBarFull.style.width = 100 * progress + "%";
           }).then((unityInstance) => {
-            unityInstance.SendMessage('User_ModelLoader', 'Execute', 5);
+            unityInstance.SendMessage('User_ModelLoader', 'Execute', sessionId);
             loadingBar.style.display = "none";
-            fullscreenButton.onclick = () => {
-              unityInstance.SetFullscreen(1);
-            };
           }).catch((message) => {
             alert(message);
           });
@@ -92,6 +87,27 @@
 @endsection
 @section('scripts')
     <script>
+      function deleteSession() {
+        $.ajax({
+            type: "DELETE",
+            url: '{{ route("simulator.end", $session->id) }}',
+            headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(msg) {
+              ///alert(msg);
+            }
+          });
+      }
+
+        window.onbeforeunload = function(){
+          deleteSession();
+        };
+
+        $('a').on('click', function () {
+          deleteSession();
+        });
+
         var errorMsg = '{{ $errors->first() }}';
         if (errorMsg != '' && errorMsg != null) {
             toastr.error(errorMsg, "Error", {

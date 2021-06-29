@@ -131,7 +131,7 @@ class AdminController extends Controller
             'art_object_id' => $id
         ]);
 
-        return redirect()->route('admin.index')->with('success', 'The Simulator Session has been created succesfully!');
+        return redirect()->route('simulator')->with('success', 'The Simulator Session has been created succesfully!');
     }
 
 }
