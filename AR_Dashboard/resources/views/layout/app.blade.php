@@ -23,6 +23,8 @@
     <link href="{{ asset('/TemplateData/style.css') }}" rel="stylesheet">
 	<link href="https://cdn.lineicons.com/2.0/LineIcons.css" rel="stylesheet">
 
+    @yield('header')
+
     <title>AR van Heekplein - @yield('title')</title>
   </head>
 
@@ -52,7 +54,7 @@
         <div class="nav-header">
             <a href="index.html" class="brand-logo">
                 <img class="logo-abbr" src="{{ asset("/images/logo.png") }}" alt="">
-                <img class="logo-compact" src="{{ asset("/images/logo-text.png") }}" alt="">
+                <img class="logo-compact" src="{{ asset("/images/logo.png") }}" alt="">
                 <img class="brand-title" src="{{ asset("/images/logo-text.png") }}" alt="">
             </a>
 
