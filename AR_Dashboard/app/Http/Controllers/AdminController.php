@@ -41,6 +41,11 @@ class AdminController extends Controller
             $artObject->username = $user->name;
         }
 
+        foreach ($artObjectsPaginate as $artObject) {
+            $user = User::find($artObject->user_id);
+            $artObject->username = $user->name;
+        }
+
         return view('admin.index', compact('artObjects', 'approvedCount', 'rejectedCount', 'pendingCount', 'artObjectsPaginate', 'notificationObjects'));
     }
 
