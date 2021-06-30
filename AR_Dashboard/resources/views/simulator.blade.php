@@ -14,7 +14,7 @@
 
 <div class="row">
     <div class="col-xl-12 col-xxl-12 col-lg-12 col-md-12">
-      <div id="unity-container" class="unity-desktop">
+      <div id="unity-container" class="unity-desktop" style="width: 960px;">
         <canvas id="unity-canvas" width=960 height=600></canvas>
         <div id="unity-loading-bar">
           <div id="unity-logo"></div>
@@ -88,30 +88,106 @@
       </script>
     </div>
  </div>
+<div class="row" style="margin-top: 50px;">
+<div class="col-xl-4 col-lg-4">
+  <div class="card border-0 pb-0">
+      <div class="card-header border-0 pb-0">
+          <h4 class="card-title">Controls</h4>
+      </div>
+      <div class="card-body"> 
+          <div id="DZ_W_Todo4" class="widget-media ps ps--active-y">
+              <ul class="timeline">
+                  <li>
+                      <div class="timeline-panel">
+                        <div class="custom-control custom-checkbox checkbox-success check-lg mr-3">
+                          <label class="" for="customCheckBox1"><span class="badge bg-secondary" style="color: white;">C</span></label>
+                        </div>
+                                                <div class="media-body">
+                          <h5 class="mb-0">Change Camera to top-down view</h5>
+                        </div>
+                      </div>
+                  </li>
+                  <li>
+                    <div class="timeline-panel">
+                      <div class="custom-control custom-checkbox checkbox-success check-lg mr-3">
+                        <label class="" for="customCheckBox1"><span class="badge bg-secondary" style="color: white;">M</span></label>
+                      </div>
+                                              <div class="media-body">
+                        <h5 class="mb-0">Lock camera while in first person view so you can't move the mouse</h5>
+                      </div>
+                    </div>
+                </li>
+                <li>
+                  <div class="timeline-panel">
+                    <div class="custom-control custom-checkbox checkbox-success check-lg mr-3">
+                      <label class="" for="customCheckBox1"><span class="badge bg-secondary" style="color: white;">R</span></label>
+                    </div>
+                                            <div class="media-body">
+                      <h5 class="mb-0">Rotate object</h5>
+                    </div>
+                  </div>
+              </li>
+
+              <li>
+                <div class="timeline-panel">
+                  <div class="custom-control custom-checkbox checkbox-success check-lg mr-3">
+                    <label class="" for="customCheckBox1"><span class="badge bg-secondary" style="color: white;">P</span></label>
+                  </div>
+                                          <div class="media-body">
+                    <h5 class="mb-0">Move object up</h5>
+                  </div>
+                </div>
+            </li>
+            <li>
+              <div class="timeline-panel">
+                <div class="custom-control custom-checkbox checkbox-success check-lg mr-3">
+                  <label class="" for="customCheckBox1"><span class="badge bg-secondary" style="color: white;">O</span></label>
+                </div>
+                                        <div class="media-body">
+                  <h5 class="mb-0">Move object down</h5>
+                </div>
+              </div>
+          </li>
+          <li>
+            <div class="timeline-panel">
+              <div class="custom-control custom-checkbox checkbox-success check-lg mr-3">
+                <label class="" for="customCheckBox1"><span class="badge bg-secondary" style="color: white;">Plus</span></label>
+              </div>
+                                      <div class="media-body">
+                <h5 class="mb-0">Increase size of object</h5>
+              </div>
+            </div>
+        </li>
+        <li>
+          <div class="timeline-panel">
+            <div class="custom-control custom-checkbox checkbox-success check-lg mr-3">
+              <label class="" for="customCheckBox1"><span class="badge bg-secondary" style="color: white;">Minus</span></label>
+            </div>
+                                    <div class="media-body">
+              <h5 class="mb-0">Decrease size of object</h5>
+            </div>
+          </div>
+      </li>
+
+      <li>
+        <div class="timeline-panel">
+          <div class="custom-control custom-checkbox checkbox-success check-lg mr-3">
+            <label class="" for="customCheckBox1"><span class="badge bg-secondary" style="color: white;">Arrows</span></label>
+          </div>
+                                  <div class="media-body">
+            <h5 class="mb-0">Move object right, left, forward and backward</h5>
+          </div>
+        </div>
+    </li>
+              </ul>
+          <div class="ps__rail-x" style="left: 0px; bottom: 0px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__rail-y" style="top: 0px; height: 370px; right: 0px;"><div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 322px;"></div></div></div>
+      </div>
+  </div>
+</div>
+</div>
 @endsection
 @section('scripts')
     <script>
-      function deleteSession() {
-        $.ajax({
-            type: "DELETE",
-            url: '{{ route("simulator.end", $session->id) }}',
-            headers: {
-              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            success: function(msg) {
-              ///alert(msg);
-            }
-          });
-      }
-
-        window.onbeforeunload = function(){
-          deleteSession();
-        };
-
-        $('a').on('click', function () {
-          deleteSession();
-        });
-
         var errorMsg = '{{ $errors->first() }}';
         if (errorMsg != '' && errorMsg != null) {
             toastr.error(errorMsg, "Error", {
