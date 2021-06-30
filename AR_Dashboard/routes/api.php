@@ -7,6 +7,7 @@ use App\Http\Controllers\API\LoginController;
 use App\Http\Controllers\API\ArtObjectController;
 use App\Http\Controllers\API\ProfileController;
 use App\Http\Controllers\API\ReviewController;
+use App\Http\Controllers\API\SimulatorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +27,7 @@ Route::get('artobjects', [ArtObjectController::class, 'index']);
 Route::get('simulator/{id}', [ArtObjectController::class, 'simulator']);
 Route::get('reviews/{id}', [ReviewController::class, 'getReview']);
 Route::post('reviews', [ReviewController::class, 'postReview']);
+Route::delete('simulator/{id}/delete', [SimulatorController::class, 'deleteSession']);
 Route::post('login', [LoginController::class, 'index']);
 
 Route::middleware('auth:api')->group( function () {
