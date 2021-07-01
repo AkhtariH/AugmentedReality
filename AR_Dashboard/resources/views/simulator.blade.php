@@ -172,10 +172,10 @@
       <li>
         <div class="timeline-panel">
           <div class="custom-control custom-checkbox checkbox-success check-lg mr-3">
-            <label class="" for="customCheckBox1"><span class="badge bg-secondary" style="color: white;">Arrows</span></label>
+            <label class="" for="customCheckBox1"><span class="badge bg-secondary" style="color: white;">K, H, U, J</span></label>
           </div>
-                                  <div class="media-body">
-            <h5 class="mb-0">Move object right, left, forward and backward</h5>
+          <div class="media-body">
+            <h5 class="mb-0">Move object right, left, up and down</h5>
           </div>
         </div>
     </li>
