@@ -133,7 +133,6 @@ public class test : MonoBehaviour
             System.Threading.Thread.Sleep(1);
 
         var textStream = new MemoryStream(Encoding.UTF8.GetBytes(www.text));
-        var loadedObj = new OBJLoader().Load;
         var loadedObj = new OBJLoader().Load(textStream);
         
         arObjectToSpawn = loadedObj;
