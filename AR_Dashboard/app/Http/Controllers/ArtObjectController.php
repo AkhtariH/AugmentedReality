@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\ArtObject;
+use App\Models\Review;
 use App\Models\SimulatorSession;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -32,6 +33,16 @@ class ArtObjectController extends Controller
         } else {
             $pendingCount = ArtObject::where([['user_id', '=', Auth()->user()->id], ['status', '=', 'Pending']])->count();
             $notificationObjects = null;
+        }
+        foreach ($artObjects as $object) {
+            $reviews = Review::where('art_object_id', $object->id)->get();
+            $sum = 0;
+            foreach ($reviews as $re) {
+                $sum += $re->review;
+            }
+
+            $average = (int) round($sum / count($reviews));
+            $object->rating = $average;
         }
         $rejectedCount = ArtObject::where([['user_id', '=', Auth()->user()->id], ['status', '=', 'Rejected']])->count();
         
@@ -106,8 +117,10 @@ class ArtObjectController extends Controller
     public function edit($id)
     {
         $artObject = ArtObject::findOrFail($id);
+        $pendingCount = null;
+        $notificationObjects = null;
 
-        return view('edithome', compact('artObject'));
+        return view('edithome', compact('artObject', 'pendingCount', 'notificationObjects'));
     }
 
     /**

@@ -193,7 +193,11 @@
                                     <td>{{ $object->name }}</td>
                                     <td>{{ $object->description }}</td>
                                     <td>{{ $object->created_at->format('d.m.Y') }}</td>
-                                    <td><i class="lni lni-star-filled"></i><i class="lni lni-star-filled"></i><i class="lni lni-star-filled"></i><i class="lni lni-star-filled"></i><i class="lni lni-star"></i></td>
+                                    <td>
+                                        @for ($i = 0; $i < $object->rating; $i++)
+                                            <i class="lni lni-star-filled"></i>
+                                        @endfor
+                                    </td>
                                     <td><span class="badge light {{  $object->status == 'Approved' ? 'badge-success' : ($object->status == 'Rejected' ? 'badge-danger' : 'badge-warning') }}">{{ $object->status }}</span></td>
                                     <td>
                                         <div class="dropdown">
