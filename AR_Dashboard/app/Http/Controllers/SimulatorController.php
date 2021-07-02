@@ -23,6 +23,6 @@ class SimulatorController extends Controller
         $session = SimulatorSession::findOrFail($id);
         $session->delete();
 
-        return response()->json("Success!", 200);;
+        return response()->json("Success!", 200);
     }
 }

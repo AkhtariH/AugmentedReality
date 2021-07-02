@@ -88,8 +88,9 @@
                           </svg>
                     </span>
                     <div class="media-body text-white">
-                        <h3 class="mb-0 text-white"><span class="counter ml-0">65</span></h3>
-                        <p class="mb-0">Avg. Stars</p>
+                        <h3 class="mb-0 text-white"><span class="counter ml-0">{{ $pendingCount }}</span></h3>
+                        <p class="mb-0">Pending</p>
+                        <small>{{ $pendingCount > 0 ? round(($pendingCount / $objectsCount) * 100, 2) : 0 }}%</small>
                     </div>
                 </div>
             </div>

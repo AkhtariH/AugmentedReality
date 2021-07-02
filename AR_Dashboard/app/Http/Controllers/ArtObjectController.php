@@ -30,11 +30,11 @@ class ArtObjectController extends Controller
                 $object->profile_image = $user->profile_image;
             }
         } else {
-            $pendingCount = null;
+            $pendingCount = ArtObject::where([['user_id', '=', Auth()->user()->id], ['status', '=', 'Pending']])->count();
             $notificationObjects = null;
         }
         $rejectedCount = ArtObject::where([['user_id', '=', Auth()->user()->id], ['status', '=', 'Rejected']])->count();
-        // TODO: Average Stars
+        
 
         return view('home', compact('artObjects', 'approvedCount', 'objectsCount', 'rejectedCount', 'pendingCount', 'notificationObjects'));
     }
