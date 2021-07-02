@@ -28,10 +28,3 @@ Route::get('simulator/{id}', [ArtObjectController::class, 'simulator']);
 Route::get('reviews/{id}', [ReviewController::class, 'getReview']);
 Route::post('reviews', [ReviewController::class, 'postReview']);
 Route::delete('simulator/{id}/delete', [SimulatorController::class, 'deleteSession']);
-Route::post('login', [LoginController::class, 'index']);
-
-Route::middleware('auth:api')->group( function () {
-    Route::resource('bridges', BridgeController::class);
-    Route::get('/user', function (Request $request){ return $request->user(); });
-    Route::post('logout', [LoginController::class, 'logout']);
-});

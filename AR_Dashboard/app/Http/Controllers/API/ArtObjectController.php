@@ -18,7 +18,7 @@ class ArtObjectController extends BaseController
      */
     public function index()
     {
-        $artObjects = ArtObject::all();
+        $artObjects = ArtObject::where('status', 'Approved')->get();
 
         return $this->sendResponse(ArtObjectResource::collection($artObjects), 'ArtObject retrieved successfully.');
     }
