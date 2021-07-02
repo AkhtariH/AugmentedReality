@@ -41,7 +41,12 @@ class ArtObjectController extends Controller
                 $sum += $re->review;
             }
 
-            $average = (int) round($sum / count($reviews));
+            if (count($reviews) > 0) {
+                $average = (int) round($sum / count($reviews));
+            } else {
+                $average = 0;
+            }
+            
             $object->rating = $average;
         }
         $rejectedCount = ArtObject::where([['user_id', '=', Auth()->user()->id], ['status', '=', 'Rejected']])->count();
